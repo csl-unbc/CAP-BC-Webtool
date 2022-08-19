@@ -23,12 +23,16 @@ compress:
 	cd inst/extdata/data/cap-bc-data/ && zip -r ../cap-bc-data.zip *
 
 data:
-	R --slave -e "source('inst/scripts/format-cap-bc-data.R')"
+	#R --slave -e "source('inst/scripts/format-cap-bc-data-1km.R')"
+	R --slave -e "source('inst/scripts/format-cap-bc-data-5km.R')"
 
 ## copy data to production directory
 prod-data:
-	rm -rf /usr/local/lib/R/site-library/wheretowork/extdata/projects/cap_bc
-	cp -R inst/extdata/projects/cap_bc /usr/local/lib/R/site-library/wheretowork/extdata/projects
+#	rm -rf /usr/local/lib/R/site-library/wheretowork/extdata/projects/cap_bc_1km
+#	cp -R inst/extdata/projects/cap_bc_1km /usr/local/lib/R/site-library/wheretowork/extdata/projects
+
+	rm -rf /usr/local/lib/R/site-library/wheretowork/extdata/projects/cap_bc_5km
+	cp -R inst/extdata/projects/cap_bc_5km /usr/local/lib/R/site-library/wheretowork/extdata/projects
 
 cap-bc: data prod-data
 	

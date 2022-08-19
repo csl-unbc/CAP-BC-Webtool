@@ -7,24 +7,15 @@ library(dplyr)
 # Get input data file paths ----
 
 ## define variables
-metadata_path <- file.path(
-  "inst", "extdata", "data", "cap-bc-metadata.csv"
-)
 study_area_file <- "Planning Units.tif"
 
 # Preliminary processing
 ## prepare raster data
-data_dir <- file.path("inst", "extdata", "data", "cap-bc-data")
+data_dir <- file.path("inst", "extdata", "data", "cap-bc-data-5km")
 
-# Read-in data ----
+# Read metdata file
+source("inst/extdata/data/cap-bc-load-metadata.R")
 
-## Import formatted csv (metadata) as tibble
-metadata <- tibble::as_tibble(
-  utils::read.table(
-    metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE,
-    comment.char = ""
-  )
-)
 
 ## Validate metadata
 assertthat::assert_that(
@@ -69,6 +60,7 @@ names(theme_data) <- gsub(".", "_", names(theme_data), fixed = TRUE)
 theme_names <- metadata$Name[metadata$Type == "theme"]
 theme_groups <- metadata$Theme[metadata$Type == "theme"]
 theme_colors <- metadata$Color[metadata$Type == "theme"]
+theme_legend <- metadata$Legend[metadata$Type == "theme"]
 theme_labels <- metadata$Labels[metadata$Type == "theme"]
 theme_units <- metadata$Unit[metadata$Type == "theme"]
 theme_visible <- metadata$Visible[metadata$Type == "theme"]
@@ -89,11 +81,11 @@ weight_data <- raster_data[[which(metadata$Type == "weight")]]
 weight_data <- raster::clamp(weight_data, lower = 0)
 weight_names <- metadata$Name[metadata$Type == "weight"]
 weight_colors <- metadata$Color[metadata$Type == "weight"]
+weight_legend <- metadata$Legend[metadata$Type == "weight"]
 weight_labels <- metadata$Labels[metadata$Type == "weight"]
 weight_units <- metadata$Unit[metadata$Type == "weight"]
 weight_visible <- metadata$Visible[metadata$Type == "weight"]
 weight_provenance <- metadata$Provenance[metadata$Type == "weight"]
-weight_legend <- metadata$Legend[metadata$Type == "weight"]
 
 ## validate processed data  TODO
 # assertthat::assert_that(
@@ -127,30 +119,44 @@ themes <- lapply(seq_along(unique(theme_groups)), function(i) {
   curr_theme_names <- theme_names[theme_groups == curr_theme_groups]
   curr_theme_colors <- theme_colors[theme_groups == curr_theme_groups]
   curr_theme_labels <- theme_labels[theme_groups == curr_theme_groups]
+  curr_theme_legend <- theme_legend[theme_groups == curr_theme_groups]
   curr_theme_units <- theme_units[theme_groups == curr_theme_groups]
   curr_theme_visible <- theme_visible[theme_groups == curr_theme_groups]
   curr_theme_provenance <- theme_provenance[theme_groups == curr_theme_groups]
 
   ## 3. Create list of features (j) associated with group
   curr_features <- lapply(seq_along(curr_theme_names), function(j) {
+    if (identical(curr_theme_legend[j], "manual")) {
+      v <- new_variable(
+        dataset = dataset,
+        index = curr_theme_data_names[j],
+        units = curr_theme_units[j],
+        total = raster::cellStats(curr_theme_data[[j]], "sum"),
+        legend = new_manual_legend(
+          values = c(0, 25),
+          colors = c("#00000000", curr_theme_colors[j]),
+          labels = unlist(lapply(strsplit(curr_theme_labels[j], ","), trimws))
+        ),
+        provenance = new_provenance_from_source(curr_theme_provenance[j])
+      )
+    } else { ## prepare variable (continuous legend, automatically identified)
+       v <- new_variable_from_auto(
+         dataset = dataset,
+         index = curr_theme_data_names[j],
+         units = curr_theme_units[j],
+         type = curr_theme_legend[j],
+         colors = unlist(lapply(strsplit(curr_theme_colors[j], ","), trimws)),
+         provenance = curr_theme_provenance[j],
+         labels = "missing"
+      )
+    }
     new_feature(
       name = curr_theme_names[j],
       goal = 0.2,
       current = 0,
       limit_goal = 0,
       visible = curr_theme_visible[j],
-      variable = new_variable(
-        dataset = dataset,
-        index = curr_theme_data_names[j],
-        units = curr_theme_units[j],
-        total = raster::cellStats(curr_theme_data[[j]], "sum"),
-        legend = new_manual_legend(
-          values = c(0, 1),
-          colors = c("#00000000", curr_theme_colors[j]),
-          labels = unlist(strsplit(curr_theme_labels[j], ","))
-        ),
-        provenance = new_provenance_from_source(curr_theme_provenance[j])
-      )
+      variable = v
     )
   })
 
@@ -177,9 +183,9 @@ includes <- lapply(seq_len(raster::nlayers(include_data)), function(i) {
       units = include_units[i],
       total = raster::cellStats(include_data[[i]], "sum"),
       legend = new_manual_legend(
-        values = c(0, 1),
+        values = c(0, 25),
         colors = c("#00000000", include_colors[i]),
-        labels = unlist(strsplit(include_labels[i], ","))
+        labels = unlist(lapply(strsplit(include_labels[i], ","), trimws))
       ),
       provenance = new_provenance_from_source(include_provenance[i])
     )
@@ -200,17 +206,17 @@ weights <- lapply(seq_len(raster::nlayers(weight_data)), function(i) {
       type = "manual",
       colors = trimws(unlist(strsplit(weight_colors[i], ","))),
       provenance = weight_provenance[i],
-      labels = unlist(strsplit(weight_labels[i], ","))
+      labels = unlist(lapply(strsplit(weight_labels[i], ","), trimws))
     )
   } else { ## prepare variable (continuous legend, automatically identified)
     v <- new_variable_from_auto(
      dataset = dataset,
      index = names(weight_data)[i],
      units = weight_units[i],
-     type = "auto",
-     colors = weight_colors[i],
+     type = weight_legend[i],
+     colors = unlist(lapply(strsplit(weight_colors[i], ","), trimws)),
      provenance = weight_provenance[i],
-     labels = "missing"
+     labels = unlist(lapply(strsplit(weight_labels[i], ","), trimws))
     )
   }
   ## Create weight
@@ -221,22 +227,22 @@ weights <- lapply(seq_len(raster::nlayers(weight_data)), function(i) {
 
 ## Create output folder if needed
 dir.create(
-  "inst/extdata/projects/cap_bc", recursive = TRUE, showWarnings = FALSE
+  "inst/extdata/projects/cap_bc_5km", recursive = TRUE, showWarnings = FALSE
 )
 
 ## save project to disk
 write_project(
   x = append(themes, append(includes, weights)),
   dataset = dataset,
-  name = "CAP-BC",
+  name = "CAP-BC-5km",
   path =
-    "inst/extdata/projects/cap_bc/cap_bc.yaml",
+    "inst/extdata/projects/cap_bc_5km/cap_bc_5km.yaml",
   spatial_path =
-    "inst/extdata/projects/cap_bc/cap_bc_spatial.tif",
+    "inst/extdata/projects/cap_bc_5km/cap_bc_5km_spatial.tif",
   attribute_path =
-    "inst/extdata/projects/cap_bc/cap_bc_attribute.csv.gz",
+    "inst/extdata/projects/cap_bc_5km/cap_bc_5km_attribute.csv.gz",
   boundary_path =
-    "inst/extdata/projects/cap_bc/cap_bc_boundary.csv.gz",
+    "inst/extdata/projects/cap_bc_5km/cap_bc_5km_boundary.csv.gz",
   mode = "advanced",
   author_name = "Xavier C. Llano",
   author_email = "llano@unbc.ca"
