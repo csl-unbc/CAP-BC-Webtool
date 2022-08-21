@@ -22,6 +22,46 @@ metadata_to_add <- tibble::as_tibble(
 )
 metadata %>% add_row(metadata_to_add) -> metadata
 
+#### YALE 2 #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-yale2-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
+#### YALE 3 #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-yale3-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
+#### YALE 4 #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-yale4-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
+#### YALE 5 #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-yale5-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
+#### YALE 6 #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-yale6-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
 #### WEIGHTS #####
 
 ## prepare raster data

@@ -27,7 +27,7 @@ cap_bc_input <- "/home/xavier/Dropbox/CAB-BC/input"
 PU_1km <- raster(here::here("inst/extdata/data/cap-bc-data-1km/Planning Units.tif")) %>% na_if(0)  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
 PU_5km <- raster(here::here("inst/extdata/data/cap-bc-data-5km/Planning Units.tif")) %>% na_if(0)  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
 
-prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA) {
+prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = NA) {
 
   if (class(raster_layer)[1]!="RasterLayer") {
     raster_layer <- raster_file %>% raster()
@@ -40,10 +40,15 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
     PU <- idx_list[[1]][[i]]
     cap_bc_dir <- idx_list[[2]][[i]]
 
-    if (cap_bc_dir == "cap-bc-data-5km") {
-      rl <- raster::projectRaster(raster_layer, to = PU, method = "ngb")
-    } else {
+    if (cap_bc_dir == "cap-bc-data-1km") {
+      # 1km resolution
+      dt <- dtype[1]
       rl <- raster_layer
+    } else {
+      # 5km resolution
+      dt <- dtype[2]
+      method <- if (dt == "FLT4S") "bilinear" else "ngb"
+      rl <- raster::projectRaster(raster_layer, to = PU, method = method)
     }
 
     file_name <- basename(raster_file)
@@ -65,7 +70,7 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
 
     full_out_path <- file.path(here::here("inst/extdata/data/"), cap_bc_dir, out_path)
     if (!dir.exists(full_out_path)) {dir.create(full_out_path, recursive = TRUE)}
-    writeRaster(rl, filename=file.path(full_out_path, file_name), format="GTiff", overwrite=TRUE, datatype=dtype)
+    writeRaster(rl, filename=file.path(full_out_path, file_name), format="GTiff", overwrite=TRUE, datatype=dt)
   }
 }
 
@@ -79,49 +84,57 @@ yale_path <- "yale_1"
 BEC_now <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/By Zones/") %>%
   list.files(pattern = "*.tif$", full.names = TRUE)
 for (file in BEC_now) {
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_zones"), norm = TRUE, dtype = 'INT1U', fill_nodata = 0)
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_zones"), norm = TRUE,
+                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
 # unrepresentative_BEC_zones
 unrepresentative_BEC_zones <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Unrepresentative BEC Zones.tif")
-prepare_raster_file(unrepresentative_BEC_zones, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(unrepresentative_BEC_zones, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = NA)
 
 # Critical habitat
 critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Critical Habitat.tif")
-prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = NA)
 
 # Bison Capability
 bison_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Bison Capability.tif")
-prepare_raster_file(bison_capability, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(bison_capability, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Moose Capability - Alaskan
 moose_capability_alaskan <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Alaskan.tif")
-prepare_raster_file(moose_capability_alaskan, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(moose_capability_alaskan, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Moose Capability - Northwestern
 moose_capability_northwestern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Northwestern.tif")
-prepare_raster_file(moose_capability_northwestern, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(moose_capability_northwestern, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Moose Capability - Shiras
 moose_capability_shiras <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Shiras.tif")
-prepare_raster_file(moose_capability_shiras, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(moose_capability_shiras, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Caribou Capability - Boreal
 caribou_capability_boreal <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Boreal.tif")
-prepare_raster_file(caribou_capability_boreal, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(caribou_capability_boreal, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Caribou Capability - Northern
 caribou_capability_northern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Northern.tif")
-prepare_raster_file(caribou_capability_northern, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(caribou_capability_northern, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Elk Capability
 elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Elk Capability.tif")
-prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
 # Birds Species Distribution Current
 birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
-
 birds_current_list <- file.path(birds_path, "Current") %>% list.files(pattern = "*.tif$", full.names = TRUE)
-
 birds_names <- file.path(birds_path, "Birds.csv") %>% read_csv()
 birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
@@ -129,7 +142,8 @@ birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(
                           "Provenance"=numeric(0))
 for (file in birds_current_list) {
   # prepare the raster file
-  # prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE, dtype = 'FLT4S', fill_nodata = 0)
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
+                      dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
   # add to the table
   bird_code <- unlist(strsplit(basename(file), " "))[[4]]
   bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
@@ -140,9 +154,7 @@ write.csv(birds_table, file.path(here::here("inst/extdata/data/"), "cap-bc-yale1
 
 # Trees Species Distribution Current
 trees_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Trees"
-
 trees_current_list <- file.path(trees_path, "Current") %>% list.files(pattern = "*.tif$", full.names = TRUE)
-
 trees_names <- file.path(trees_path, "Trees.csv") %>% read_csv()
 trees_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
@@ -152,7 +164,8 @@ for (file in trees_current_list) {
   # prepare the raster file
   raster_layer <- file %>% raster()
   raster_layer[raster_layer == 200] <- 0
-  prepare_raster_file(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE, dtype = 'FLT4S', fill_nodata = 0)
+  prepare_raster_file(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE,
+                      dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
   # add to the table
   tree_code <- unlist(strsplit(basename(file), " "))[[4]]
   tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
@@ -161,22 +174,158 @@ for (file in trees_current_list) {
 }
 write.csv(trees_table, file.path(here::here("inst/extdata/data/"), "cap-bc-yale1-trees-metadata.csv"), row.names=FALSE)
 
-
-
-
-
-
 ########### YALE 2 - Natural landscapes and ecological processes
+
+yale_path <- "yale_2"
+
+# Forest Age
+forest_age <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Forest Age.tif")
+prepare_raster_file(forest_age, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Intact Forest Landscapes
+intact_forest_landscapes <- file.path(cap_bc_input, "Layers - Current/Biodiversity/Intact Forest Landscapes.tif")
+ifl<-raster(intact_forest_landscapes)
+ifl[ifl<=50]<-0
+ifl[ifl>50]<-1
+prepare_raster_file(intact_forest_landscapes, ifl, out_path = yale_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+
+# Wilderness
+wilderness <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Wilderness.tif")
+prepare_raster_file(wilderness, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+
 ########### YALE 3 - Geophysical setting
+
+yale_path <- "yale_3"
+
+# Land Facet Diversity
+land_facets_diversity <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Land Facet Diversity.tif")
+prepare_raster_file(land_facets_diversity, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Karst Potential Areas
+karst_potential_areas <- file.path(cap_bc_input, "Layers - Current/Geophysical/Geological Feature/Karst Potential Areas.tif")
+prepare_raster_file(karst_potential_areas, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+
 ########### YALE 4 - Future climate space
+
+yale_path <- "yale_4"
+
+# BEC future
+BEC_future_list <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/BEC Zones Projection/By Zones/") %>%
+  list.files(pattern = "*2071-2100.tif$", full.names = TRUE)
+for (file in BEC_future_list) {
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_future"), norm = TRUE,
+                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+}
+
+# Pinch Point BEC Zone {16 zones}
+BEC_pinch_points <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Pinch Point BEC Zones/") %>%
+  list.files(pattern = "*.tif$", full.names = TRUE)
+for (file in BEC_pinch_points) {
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE,
+                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+}
+
+# Birds Species Distribution Future
+birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
+birds_current_list <- file.path(birds_path, "rcp45") %>% list.files(pattern = "*2100.tif$", full.names = TRUE)
+birds_names <- file.path(birds_path, "Birds.csv") %>% read_csv()
+birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
+                          "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
+                          "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
+                          "Provenance"=numeric(0))
+for (file in birds_current_list) {
+  # prepare the raster file
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
+                      dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+  # add to the table
+  bird_code <- unlist(strsplit(basename(file), " "))[[4]]
+  bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
+  birds_table[nrow(birds_table)+1, ] <- c("theme", "Future climate space", glue("yale_4/Birds/{basename(file)}"),
+                                           glue("Bird future: {bird_name}"), "Blues", "continuous", "", "km2*", "FALSE", "missing")
+}
+write.csv(birds_table, file.path(here::here("inst/extdata/data/"), "cap-bc-yale4-birds-metadata.csv"), row.names=FALSE)
+
+# Trees Species Distribution Future
+trees_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Trees"
+trees_current_list <- file.path(trees_path, "rcp45") %>% list.files(pattern = "*100.tif$", full.names = TRUE)
+trees_names <- file.path(trees_path, "Trees.csv") %>% read_csv()
+trees_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
+                          "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
+                          "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
+                          "Provenance"=numeric(0))
+for (file in trees_current_list) {
+  # prepare the raster file
+  raster_layer <- file %>% raster()
+  raster_layer[raster_layer == 200] <- 0
+  prepare_raster_file(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE,
+                      dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+  # add to the table
+  tree_code <- unlist(strsplit(basename(file), " "))[[4]]
+  tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
+  trees_table[nrow(trees_table)+1, ] <- c("theme", "Future climate space", glue("yale_4/Trees/{basename(file)}"),
+                                           glue("Tree future: {tree_name}"), "Greens", "continuous", "", "km2*", "FALSE", "missing")
+}
+write.csv(trees_table, file.path(here::here("inst/extdata/data/"), "cap-bc-yale4-trees-metadata.csv"), row.names=FALSE)
+
 ########### YALE 5 - Climate refugia
+
+yale_path <- "yale_5"
+
+# BEC Zones Overlap
+BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap.tif")
+prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+
+# Songbird Macrorefugia rcp4.5 2071-2100
+Birds_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/",
+                           "Songbird Macrorefugia rcp4.5 2071-2100.tif")
+prepare_raster_file(Birds_refugia, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Tree Macrorefugia rcp4.5 2071-2100
+Trees_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/",
+                           "Tree Macrorefugia rcp4.5 2071-2100.tif")
+prepare_raster_file(Trees_refugia, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Climatic refugia
+Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future climate refugia/",
+                              "Climatic refugia rcp8.5 2071-2100.tif")
+prepare_raster_file(Climatic_refugia, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+
+# Ecoregional Refugia Index rcp4.5 2071-2100
+Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/",
+                                       "Ecoregional Refugia Index rcp4.5 2071-2100.tif")
+prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
 ########### YALE 6 - Ecological connectivity
+
+yale_path <- "yale_6"
+
+# Species movement to analog climates
+Species_movement_to_analog_climates <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Climate connectivity priority areas/",
+                                        "Species movement to analog climates rcp8.5 2071-2100.tif")
+prepare_raster_file(Species_movement_to_analog_climates, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Current-flow centrality climate analogs rcp8.5 2071-2100
+Current_flow_centrality <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Centrality climate analogs/",
+                                      "Current-flow centrality climate analogs rcp8.5 2071-2100.tif")
+prepare_raster_file(Current_flow_centrality, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 ########### WEIGHT
 prepare_raster_file(file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif"),
-                    NA, out_path = "weight", norm = TRUE, dtype = 'FLT4S', fill_nodata = NA)
+                    NA, out_path = "weight", norm = TRUE, dtype_5k = 'FLT4S', fill_nodata = NA)
 
 ########### INCLUDE
 
 prepare_raster_file(file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/BC Parks, Ecological Reserves, and Protected Areas.tif"),
-                    NA, out_path = "include", norm = TRUE, dtype = 'INT1U', fill_nodata = NA)
+                    NA, out_path = "include", norm = TRUE, dtype_5k = 'INT1U', fill_nodata = NA)
