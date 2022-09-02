@@ -62,6 +62,14 @@ metadata_to_add <- tibble::as_tibble(
 )
 metadata %>% add_row(metadata_to_add) -> metadata
 
+#### Ecosystem Services #####
+
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-ecosystem-services-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+
 #### WEIGHTS #####
 
 ## prepare raster data

@@ -321,6 +321,31 @@ Current_flow_centrality <- file.path(cap_bc_input, "Layers - Projection/Connecti
 prepare_raster_file(Current_flow_centrality, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
+########### Ecosystem services
+
+out_path <- "ecosystem_services"
+
+# Ecosystem Carbon
+ecosystem_carbon <- file.path(cap_bc_input, "Layers - Current/Carbon Storage/Ecosystem Carbon.tif")
+prepare_raster_file(ecosystem_carbon, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Net Primary Productivity
+net_primary_productivity <- file.path(cap_bc_input, "Layers - Current/Carbon Storage/Biomass Ecosystem/Net Primary Productivity.tif")
+prepare_raster_file(net_primary_productivity, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Recreation Provision
+recreation_provision <- file.path(cap_bc_input, "Layers - Current/Ecosystem Services/Recreation Provision.tif")
+prepare_raster_file(recreation_provision, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Freshwater Provision
+freshwater_provision <- file.path(cap_bc_input, "Layers - Current/Ecosystem Services/Freshwater Provision.tif")
+prepare_raster_file(freshwater_provision, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+
 ########### WEIGHT
 prepare_raster_file(file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif"),
                     NA, out_path = "weight", norm = TRUE, dtype_5k = 'FLT4S', fill_nodata = NA)
