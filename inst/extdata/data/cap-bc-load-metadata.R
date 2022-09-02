@@ -45,6 +45,18 @@ metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
 metadata %>% add_row(metadata_to_add) -> metadata
+## Birds current
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc-yale4-birds-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
+## Trees current
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc-yale4-trees-metadata.csv")
+metadata_to_add <- tibble::as_tibble(
+  utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
+)
+metadata %>% add_row(metadata_to_add) -> metadata
 
 #### YALE 5 #####
 
