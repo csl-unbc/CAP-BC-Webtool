@@ -1,0 +1,3 @@
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
+theme,Geophysical setting,yale_3/Land Facet Diversity.tif,Land Facet Diversity,Spectral,continuous,,km2*,FALSE,missing,,
+theme,Geophysical setting,yale_3/Karst Potential Areas.tif,Karst Potential Areas,#800080,manual,"absence,presence",km2*,FALSE,missing,,

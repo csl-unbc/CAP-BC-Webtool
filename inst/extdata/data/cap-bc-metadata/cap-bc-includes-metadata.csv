@@ -1,0 +1,5 @@
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
+include,Protected Areas,"include/BC Parks, Ecological Reserves, and Protected Areas.tif",Current Protected Areas,#b3e2cd,manual,"not included,included",km2,TRUE,missing,,
+include,Protected Areas,include/Private Lands.tif,Private Lands,#e87979,manual,"not included,included",km2,FALSE,missing,,
+include,Protected Areas,include/Public Lands.tif,Public Lands,#b8cc9a,manual,"not included,included",km2,FALSE,missing,,
+include,Protected Areas,include/Natural Resource Extraction Tenures.tif,Natural Resource Extraction Tenures,#767676,manual,"not included,included",km2,FALSE,missing,,

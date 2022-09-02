@@ -1,0 +1,4 @@
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
+theme,Natural landscapes and ecological processes,yale_2/Forest Age.tif,Forest Age,YlGn,continuous,,km2*,FALSE,missing,,
+theme,Natural landscapes and ecological processes,yale_2/Intact Forest Landscapes.tif,Intact Forest Landscapes,#51992b,manual,"absence,presence",km2*,FALSE,missing,,
+theme,Natural landscapes and ecological processes,yale_2/Wilderness.tif,Wilderness,#51992b,manual,"absence,presence",km2*,FALSE,missing,,

@@ -14,8 +14,7 @@ study_area_file <- "Planning Units.tif"
 data_dir <- file.path("inst", "extdata", "data", "cap-bc-data-5km")
 
 # Read metdata file
-source("inst/extdata/data/cap-bc-load-metadata.R")
-
+source(file.path("inst", "extdata", "data", "cap-bc-load-metadata.R"))
 
 ## Validate metadata
 assertthat::assert_that(
