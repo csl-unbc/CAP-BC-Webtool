@@ -347,10 +347,41 @@ prepare_raster_file(freshwater_provision, NA, out_path = out_path, norm = TRUE,
 
 
 ########### WEIGHT
-prepare_raster_file(file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif"),
-                    NA, out_path = "weight", norm = TRUE, dtype_5k = 'FLT4S', fill_nodata = NA)
+
+out_path <- "weight"
+
+# Human Footprint
+human_footprint <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif")
+prepare_raster_file(human_footprint, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Road Density (log)
+road_density <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Road Density (log).tif")
+prepare_raster_file(road_density, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
 
 ########### INCLUDE
 
-prepare_raster_file(file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/BC Parks, Ecological Reserves, and Protected Areas.tif"),
-                    NA, out_path = "include", norm = TRUE, dtype_5k = 'INT1U', fill_nodata = NA)
+out_path <- "include"
+
+# Current Protected Areas
+current_protected_areas <- file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/BC Parks, Ecological Reserves, and Protected Areas.tif")
+prepare_raster_file(current_protected_areas, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+
+# Private Lands
+private_lands <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Private Lands.tif")
+prepare_raster_file(private_lands, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+
+# Public Lands
+public_lands <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Public Lands.tif")
+prepare_raster_file(public_lands, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+
+# Natural Resource Extraction Tenures
+natural_resource_extraction_tenures <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Natural Resource Extraction Tenures.tif")
+prepare_raster_file(natural_resource_extraction_tenures, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+
