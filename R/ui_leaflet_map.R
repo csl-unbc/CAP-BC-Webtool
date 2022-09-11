@@ -92,13 +92,6 @@ leaflet_map <- function(sidebar_ids) {
         icon = shiny::icon("eye-slash"),
         position = "topleft",
         onClick = htmlwidgets::JS(hide_js)
-      ),
-      leaflet::easyButton(
-        id = "showAllLayers",
-        title = "Show all layers",
-        icon = shiny::icon("eye"),
-        position = "topleft",
-        onClick = htmlwidgets::JS(show_js)
       )
     ) %>%
     ## add help button
@@ -115,14 +108,6 @@ leaflet_map <- function(sidebar_ids) {
       options = leaflet.extras2::easyprintOptions(
         exportOnly = TRUE,
         hidden = TRUE
-      )
-    ) %>%
-    leaflet::addEasyButton(
-      leaflet::easyButton(
-        title = "Take screenshot",
-        icon = shiny::icon("print"),
-        position = "topleft",
-        onClick = htmlwidgets::JS(print_js)
       )
     ) %>%
     ## add basemap controls
