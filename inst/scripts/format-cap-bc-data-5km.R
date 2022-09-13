@@ -183,6 +183,7 @@ includes <- lapply(seq_len(raster::nlayers(include_data)), function(i) {
   new_include(
     name = include_names[i],
     visible = include_visible[i],
+    status = include_visible[i],
     variable = new_variable(
       dataset = dataset,
       index = names(include_data)[i],
@@ -226,7 +227,7 @@ weights <- lapply(seq_len(raster::nlayers(weight_data)), function(i) {
     )
   }
   ## Create weight
-  new_weight(name = weight_names[i], variable = v, visible = weight_visible[i])
+  new_weight(name = weight_names[i], variable = v, visible = weight_visible[i], status = weight_visible[i])
 })
 
 # Export Where To Work objects ----
