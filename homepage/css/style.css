@@ -1,0 +1,130 @@
+
+/*
+colors:
+
+#fcfcfb
+  #fbfff6
+#ecf0e8
+
+#dae2d7
+
+#cad4c8
+#aeb9ab
+
+#708a69  # green dark background
+
+#a9b4ae  # soft text color
+#637372  # dark text color
+#3f4948  # titles dark text color
+
+#4f544e
+
+*/
+
+body {
+  background-color: #f6f9f1;
+  color: #637372;
+  font-size: 16px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+.body {
+  height: 100%;
+  overflow: hidden;
+  background-color: #f6f9f1;
+}
+
+.slideshow {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.slideshow .slider {
+  width: 100vw;
+  height: 100vw;
+  z-index: 2;
+}
+.slideshow .slider * {
+  outline: none;
+}
+.slideshow .slider .item {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  padding: 14% 12%;
+}
+.slideshow .slider .item .content {
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.slideshow .slider .item .table-content {
+  width: 100%;
+}
+.slideshow .slider .item .table-content td {
+  padding-right: 10px;
+}
+.slideshow .slider .item .text {
+  display: none;
+}
+.slideshow .slider .item img {
+  max-width: 100%;
+}
+
+.slideshow .slick-dots {
+  position: fixed;
+  z-index: 100;
+  width: 40px;
+  height: auto;
+  bottom: auto;
+  top: 50%;
+  right: auto;
+  font-size: 14px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 10px;
+  display: block;
+}
+.slideshow .slick-dots li {
+  display: block;
+  height: auto;
+  text-align: left;
+}
+.slideshow .slick-dots li a {
+  text-decoration: none;
+  color: #a9b4ae;
+  font-weight: 500;
+  position: relative;
+  width: 20px;
+  height: 15px;
+  text-align: left;
+}
+.slideshow .slick-dots li a:before {
+  height: 3px;
+  width: 30px;
+  border-radius: 0;
+  position: absolute;
+  text-align: left;
+  top: 50%;
+  right: auto;
+  left: 5px;
+}
+.slideshow .slick-dots li.slick-active a {
+  color: #637372;
+  width: 50px;
+  opacity: 1;
+  text-align: left;
+  border-bottom: 2px solid #DBA507;
+}
+
