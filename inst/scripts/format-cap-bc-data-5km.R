@@ -17,6 +17,13 @@ data_dir <- file.path("inst", "extdata", "data", "cap-bc-data-5km")
 source(file.path("inst", "extdata", "data", "cap-bc-load-metadata.R"))
 
 ## Validate metadata
+# check if file exists
+for (file in file.path(data_dir, metadata$File)) {
+  if (!file.exists(file)) {
+    stop("File does not exist: ", file)
+  }
+}
+
 assertthat::assert_that(
   all(metadata$Type %in% c("theme", "include", "weight")),
   all(file.exists(file.path(data_dir, metadata$File)))

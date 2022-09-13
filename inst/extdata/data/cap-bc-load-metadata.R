@@ -28,7 +28,7 @@ metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
-metadata %>% add_row(metadata_to_add) -> metadata
+# metadata %>% add_row(metadata_to_add) -> metadata
 
 #### YALE 3 #####
 
@@ -36,7 +36,7 @@ metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
-metadata %>% add_row(metadata_to_add) -> metadata
+# metadata %>% add_row(metadata_to_add) -> metadata
 
 #### YALE 4 #####
 
@@ -44,7 +44,7 @@ metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
-metadata %>% add_row(metadata_to_add) -> metadata
+# metadata %>% add_row(metadata_to_add) -> metadata
 ## Birds current
 metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc-yale4-birds-metadata.csv")
 metadata_to_add <- tibble::as_tibble(
@@ -64,7 +64,7 @@ metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
-metadata %>% add_row(metadata_to_add) -> metadata
+# metadata %>% add_row(metadata_to_add) -> metadata
 
 #### YALE 6 #####
 
@@ -72,7 +72,7 @@ metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")
 )
-metadata %>% add_row(metadata_to_add) -> metadata
+# metadata %>% add_row(metadata_to_add) -> metadata
 
 #### Ecosystem Services #####
 

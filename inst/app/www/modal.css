@@ -30,3 +30,8 @@
 .sbs-modal-backdrop {
   z-index: 999998;
 }
+
+.modal-backdrop {
+  margin-top: 30px;
+  background-color: #878585;
+}

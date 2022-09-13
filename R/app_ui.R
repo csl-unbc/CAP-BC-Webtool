@@ -25,7 +25,13 @@ app_ui <- function(request) {
           rel = "stylesheet",
           type = "text/css",
           href = "www/bootstrap-select-copy.min.css"
-        )
+        ),
+        # cap-bc header
+        htmltools::tags$link(
+          rel = "stylesheet",
+          type = "text/css",
+          href = "www/cap-bc/header.css"
+        ),
       ),
 
       ## start up screen
@@ -37,12 +43,8 @@ app_ui <- function(request) {
         background = "#001329"
       ),
 
-      ## title
-      shiny::h3(
-        "CAP-BC",
-        id = "app_title",
-        class = "leaflet-title"
-      ),
+      # cap-bc header
+      includeHTML(app_sys("app/www/cap-bc/header.html")),
 
       ## leaflet map
       leaflet::leafletOutput("map", width = "100%", height = "100%"),

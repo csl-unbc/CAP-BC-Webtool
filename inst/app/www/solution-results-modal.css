@@ -52,3 +52,17 @@
 .solution-results-modal .dataTables_scrollBody {
   height: clamp(300px, calc(100vh - 295px), 10000px) !important;
 }
+
+.btn-primary {
+  background-color: #708a69 !important;
+  border-color: #708a69 !important;
+}
+.solution-settings .panel.panel-default > .panel-heading {
+  background: #ecf0e8;
+}
+.solution-settings .panel-body {
+  background: #fcfcfb;
+}
+.map-manager-layer .single-container {
+  background: #fcfcfb;
+}

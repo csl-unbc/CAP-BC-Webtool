@@ -1,3 +1,7 @@
+.sidebar {
+  margin-top: 30px;
+}
+
 .sidebar-pane-inner  {
   height: 100%;
   overflow-y: auto;
@@ -10,6 +14,38 @@
   margin-left: 5px;
 }
 
+.sidebar-header {
+  background-color: #708a69 !important;
+  font-size: 13pt;
+  height: 30px !important;
+  line-height: 30px !important;
+}
+/* icons size sidebars to 30px */
+.sidebar-tabs, .sidebar-tabs > ul {
+  width: 30px !important;
+}
+.sidebar-tabs > li > a, .sidebar-tabs > ul > li > a {
+  line-height: 30px !important;
+}
+.sidebar-tabs > li, .sidebar-tabs > ul > li {
+  height: 30px !important;
+}
+.sidebar-tabs, .sidebar-tabs > ul {
+  width: 30px !important;
+}
+.sidebar-tabs, .sidebar-tabs > ul {
+  width: 30px !important;
+}
+.sidebar-left .sidebar-content {
+  left: 30px !important;
+}
+.sidebar-right .sidebar-content {
+  right: 30px !important;
+}
+.sidebar.collapsed {
+  width: 34px !important;
+}
+
 /* style sidebar panes */
 .sidebar-left .sidebar-header {
   padding-left: 30px !important;
@@ -17,6 +53,10 @@
 
 .sidebar-right .sidebar-header {
   padding-left: 30px !important;
+}
+
+.sidebar-tabs > ul > li.active {
+  background-color: #708a69 !important;
 }
 
 .sidebar-pane {
