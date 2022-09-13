@@ -46,16 +46,10 @@ acknowledgmentsSidebarPane <- function(id) {
         class = "sidebar-pane-inner",
         htmltools::tags$div(
           class = "generic-container",
-          ## NCC acknowledgments
+          ## CAP-BC acknowledgments
           shiny::includeMarkdown(
             system.file(
-              "app", "text", "acknowledge-ncc.md", package = "wheretowork"
-            )
-          ),
-          ## RCS acknowledgments
-          shiny::includeMarkdown(
-            system.file(
-              "app", "text", "acknowledge-rcs.md", package = "wheretowork"
+              "app", "text", "acknowledge-cap-bc.md", package = "wheretowork"
             )
           ),
           ## main dependencies
@@ -64,15 +58,6 @@ acknowledgmentsSidebarPane <- function(id) {
               "app", "text", "acknowledge-deps.md", package = "wheretowork"
             )
           ),
-          ## additional dependencies
-          acknowledge_packages(
-            x = setdiff(
-              rownames(utils::installed.packages()),
-              c("prioritizr", "shiny", "wheretowork")
-            ),
-            prefix = "It also uses the following R packages: ",
-            suffix = "."
-          )
         )
       )
     )
