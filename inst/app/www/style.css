@@ -26,3 +26,8 @@
 .bs-container.dropdown {
   z-index: 99999999;
 }
+
+/* hide the "Select import method" option in the welcome dialog */
+div.modal-dialog > div.modal-content > div.modal-body > div:nth-of-type(1) {
+  display: none;
+}
