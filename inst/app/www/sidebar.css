@@ -99,3 +99,8 @@
 .sidebar-left .sidebar-pane.active {
   padding-left: 0px !important;
 }
+
+/* disable Settings for new solution sidebar */
+#newSolutionPane_settings_collapse > div[value="newSolutionPane_settings_collapseParametersPanel"] {
+  display: none;
+}
