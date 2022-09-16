@@ -41,7 +41,7 @@ newSolutionSidebarPane <- function(id, solutionSettingsId = NULL) {
   ## create sidebar
   w <-
     leaflet.extras2::sidebar_pane(
-      title = "New solution",
+      title = "Layers to optimize",
       id = id,
       icon = NULL,
       ### container

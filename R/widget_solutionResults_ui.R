@@ -183,10 +183,10 @@ solutionResults_html <- function(id, style, class, ...) {
                   shinyBS::tipify(
                     el = htmltools::tags$span(
                       shiny::icon("star"),
-                      "Themes"
+                      "Planning features"
                     ),
                     title = paste(
-                      "Theme results for the solution.",
+                      "Planning features results for the solution.",
                       "This panel shows how well the Themes are covered",
                       "by the solution. It also shows how well the Themes are",
                       "covered by the Includes used to generate the solution,",
@@ -249,10 +249,10 @@ solutionResults_html <- function(id, style, class, ...) {
                   shinyBS::tipify(
                     el = htmltools::tags$span(
                       shiny::icon("weight-hanging"),
-                      "Weights"
+                      "Costs"
                     ),
                     title = paste(
-                      "Weight results for the solution.",
+                      "Costs results for the solution.",
                       "This panel shows how much the Weights are covered",
                       "by the solution. It also shows how much the Weights are",
                       "covered by the Includes used to generate the solution,",

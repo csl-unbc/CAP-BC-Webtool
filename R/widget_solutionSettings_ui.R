@@ -140,10 +140,10 @@ solutionSettings_html <- function(id, style, class, ...) {
               shinyBS::tipify(
                 el = htmltools::tags$span(
                   shiny::icon("star"),
-                  "Themes"
+                  "Planning features"
                 ),
                 title = paste(
-                  "Themes describe facets of biodiversity that are important",
+                  "Planning features describe facets of biodiversity that are important",
                   "for conservation (e.g. species, habitats, ecosystems).",
                   "To help safeguard them,",
                   "you can set goals for themes to increase their coverage",
@@ -163,10 +163,10 @@ solutionSettings_html <- function(id, style, class, ...) {
               shinyBS::tipify(
                 el = htmltools::tags$span(
                   shiny::icon("weight-hanging"),
-                  "Weights"
+                  "Costs"
                 ),
                 title = paste(
-                  "Weights describe properties of places that",
+                  "Costs describe properties of places that",
                   "should be considered when generating solutions.",
                   "To alter how much they are covered by solutions,",
                   "you can set factors for them."

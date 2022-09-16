@@ -64,7 +64,7 @@ server_export_data <- quote({
             paste0(
               x$get_layer_name(),
               "_",
-              c("summary", "themes", "weights", "includes"),
+              c("summary", "layers to optimize", "costs", "includes"),
               ".csv"
             )
           ),
