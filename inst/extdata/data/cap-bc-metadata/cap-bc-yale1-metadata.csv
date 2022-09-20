@@ -24,3 +24,5 @@ theme,Current patterns of biodiversity,yale_1/Moose Capability - Shiras.tif,Moos
 theme,Current patterns of biodiversity,yale_1/Caribou Capability - Boreal.tif,Caribou Capability - Boreal,"#ffffff, #787c0a",continuous,,km2*,FALSE,missing,,
 theme,Current patterns of biodiversity,yale_1/Caribou Capability - Northern.tif,Caribou Capability - Northern,"#ffffff, #787c0a",continuous,,km2*,FALSE,missing,,
 theme,Current patterns of biodiversity,yale_1/Elk Capability.tif,Elk Capability,"#ffffff, #787c0a",continuous,,km2*,FALSE,missing,,
+theme,Current patterns of biodiversity,yale_1/Bird Species Richness.tif,Bird Species Richness,Blues,continuous,,km2*,FALSE,missing,,
+theme,Current patterns of biodiversity,yale_1/Tree Species Richness.tif,Tree Species Richness,Greens,continuous,,km2*,FALSE,missing,,

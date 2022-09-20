@@ -132,6 +132,16 @@ elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/
 prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
 
+# Bird Species Richness
+bird_species_richness <- file.path(cap_bc_input, "Layers - Current/Species/Birds/Bird Species Richness.tif")
+prepare_raster_file(bird_species_richness, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Tree Species Richness
+tree_species_richness <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Tree Species Richness.tif")
+prepare_raster_file(tree_species_richness, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
 # Birds Species Distribution Current
 birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
 birds_current_list <- file.path(birds_path, "Current") %>% list.files(pattern = "*.tif$", full.names = TRUE)
@@ -229,6 +239,16 @@ for (file in BEC_pinch_points) {
   prepare_raster_file(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE,
                       dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
+
+# Bird Species Richness
+bird_species_richness <- file.path(cap_bc_input, "Layers - Projection/Species/Birds/Bird Species Richness 2071-2100 rcp45.tif")
+prepare_raster_file(bird_species_richness, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Tree Species Richness
+tree_species_richness <- file.path(cap_bc_input, "Layers - Projection/Species/Trees/Tree Species Richness 2071-2100 rcp45.tif")
+prepare_raster_file(tree_species_richness, NA, out_path = yale_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Birds Species Distribution Future
 birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
