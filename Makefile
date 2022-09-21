@@ -28,11 +28,10 @@ data:
 
 ## copy data to production directory
 prod-data:
-	rm -rf /usr/local/lib/R/site-library/wheretowork/extdata/projects/cap_bc_1km
-	cp -R inst/extdata/projects/cap_bc_1km /usr/local/lib/R/site-library/wheretowork/extdata/projects
+	mkdir -p /usr/local/lib/R/site-library/wheretowork/extdata/projects
 
-	rm -rf /usr/local/lib/R/site-library/wheretowork/extdata/projects/cap_bc_5km
-	cp -R inst/extdata/projects/cap_bc_5km /usr/local/lib/R/site-library/wheretowork/extdata/projects
+	mv inst/extdata/projects/cap_bc_1km /usr/local/lib/R/site-library/wheretowork/extdata/projects/
+	mv inst/extdata/projects/cap_bc_5km /usr/local/lib/R/site-library/wheretowork/extdata/projects/
 
 cap-bc: data prod-data
 	
