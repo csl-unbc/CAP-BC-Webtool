@@ -31,3 +31,9 @@
 div.modal-dialog > div.modal-content > div.modal-body > div:nth-of-type(1) {
   display: none;
 }
+
+/* project descriptions in the load dialog */
+div.modal-dialog div.modal-content div.modal-body div#project-descriptions {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
