@@ -83,8 +83,8 @@ importModal <- function(id) {
     shiny::HTML(
       "<div id=project-descriptions><b>Project availables</b><br>
       <ul>
-          <li><b>CAP-BC-5km:</b> Coarse resolution (5km) works faster than fine resolution and provides to users with a quick exploration</li>
           <li><b>CAP-BC-1km:</b> Fine resolution (1km) better and closer to the actual data and features, however it takes more time to load and process</li>
+          <li><b>CAP-BC-5km:</b> Coarse resolution (5km) works faster than fine resolution and provides to users with a quick exploration</li>
       </ul>
       </div>"),
 

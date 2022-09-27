@@ -100,6 +100,11 @@
   padding-left: 0px !important;
 }
 
+/* provenance icon for item in the left sidebar TODO */
+div.provenance-container {
+  display: none;
+}
+
 /* disable Settings for new solution sidebar */
 #newSolutionPane_settings_collapse > div[value="newSolutionPane_settings_collapseParametersPanel"] {
   display: none;

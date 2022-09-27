@@ -32,14 +32,14 @@ mm_header_component_scaffold <- function(id = uuid::UUIDgenerate(),
   # create tooltip text for type
   if (identical(type, "theme")) {
     icon <- shiny::icon("star")
-    remove_tooltip_text <- "Delete Theme"
-    visible_tooltip_text <- "Show/hide Theme on map"
-    icon_tooltip_text <- "This is a Theme"
+    remove_tooltip_text <- "Delete planning feature"
+    visible_tooltip_text <- "Show/hide planning feature on map"
+    icon_tooltip_text <- "This is a planning feature"
   } else if (identical(type, "weight")) {
     icon <- shiny::icon("weight-hanging")
-    remove_tooltip_text <- "Delete Weight"
-    visible_tooltip_text <- "Show/hide Weight on map"
-    icon_tooltip_text <- "This is a Weight"
+    remove_tooltip_text <- "Delete cost layer"
+    visible_tooltip_text <- "Show/hide cost layer on map"
+    icon_tooltip_text <- "This is a cost layer"
   } else if (identical(type, "include")) {
     icon <- shiny::icon("lock")
     remove_tooltip_text <- "Delete Include"

@@ -37,3 +37,10 @@ div.modal-dialog div.modal-content div.modal-body div#project-descriptions {
   margin-bottom: 20px;
   margin-top: 10px;
 }
+.shiny-input-container:not(.shiny-input-container-inline) {
+  width: 100%;
+}
+div.selectize-control.shiny-bound-input.shinyjs-resettable.single.plugin-selectize-plugin-a11y {
+  padding-right: 10px;
+  padding-left: 10px;
+}
