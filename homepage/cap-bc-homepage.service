@@ -1,0 +1,18 @@
+# /etc/systemd/system/cap-bc-homepage.service
+
+[Unit]
+Description=Service for CAP-BC Homepage
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+User=xavier
+WorkingDirectory=/home/xavier/CAP-BC-Webtool/homepage
+ExecStart=/usr/bin/env /usr/local/bin/docker-compose -f /home/xavier/CAP-BC-Webtool/homepage/docker-compose.yml up -d --remove-orphans
+ExecStop=/usr/bin/env /usr/local/bin/docker-compose -f /home/xavier/CAP-BC-Webtool/homepage/docker-compose.yml stop
+#StandardOutput=syslog
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
