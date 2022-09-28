@@ -366,9 +366,9 @@ prepare_raster_file(freshwater_provision, NA, out_path = out_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 
-########### WEIGHT
+########### COSTS
 
-out_path <- "weight"
+out_path <- "costs"
 
 # Human Footprint
 human_footprint <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif")
@@ -381,9 +381,9 @@ prepare_raster_file(road_density, NA, out_path = out_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 
-########### INCLUDE
+########### INCLUDES
 
-out_path <- "include"
+out_path <- "includes"
 
 # Current Protected Areas
 current_protected_areas <- file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/BC Parks, Ecological Reserves, and Protected Areas.tif")

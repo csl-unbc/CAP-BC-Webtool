@@ -82,10 +82,10 @@ metadata_to_add <- tibble::as_tibble(
 )
 metadata %>% add_row(metadata_to_add) -> metadata
 
-#### WEIGHTS #####
+#### COSTS #####
 
 ## prepare raster data
-metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc-weights-metadata.csv")
+metadata_path <- file.path("inst", "extdata", "data", "cap-bc-metadata", "cap-bc-costs-metadata.csv")
 ## Import formatted csv (metadata) as tibble
 metadata_to_add <- tibble::as_tibble(
   utils::read.table(metadata_path, stringsAsFactors = FALSE, sep = ",", header = TRUE, comment.char = "")

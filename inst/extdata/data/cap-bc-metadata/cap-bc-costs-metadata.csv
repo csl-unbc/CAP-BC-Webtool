@@ -1,0 +1,3 @@
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
+weight,Human Footprint,costsHuman Footprint.tif,Human Footprint,Reds,continuous,missing,km2*,FALSE,missing,,
+weight,Human Footprint,costsRoad Density (log).tif,Road Density,"#ffffff, #6b0022",continuous,missing,km2*,FALSE,missing,,

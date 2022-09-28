@@ -218,9 +218,7 @@ ss_header_component_scaffold <- function(
         `data-container` = "body",
         `data-trigger` = "hover",
         title = paste(
-          "Enable/disable the ",
-          tools::toTitleCase(type),
-          " when generating a solution"
+          "Enable/disable when generating a solution"
         ),
         `for` = id
       )

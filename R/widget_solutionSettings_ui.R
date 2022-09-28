@@ -343,11 +343,9 @@ solutionSettings_html <- function(id, style, class, ...) {
             title = paste(
               "Set the factor.",
               "Positive factors (i.e. values > 0) indicate that",
-              "it is more important for solutions to cover a weight",
-              "(e.g. landscape naturalness).",
+              "it is more important for solutions to cover high values.",
               "Negative factors (i.e. values < 0) indicate that",
-              "it is more important for solutions to avoid a weight",
-              "(e.g. human population density)."
+              "it is more important for solutions to avoid high values."
             ),
             ss_slider_component_scaffold()
           ),
