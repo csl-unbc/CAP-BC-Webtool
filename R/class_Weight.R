@@ -119,7 +119,7 @@ Weight <- R6::R6Class(
     #' Print the object.
     #' @param ... not used.
     print = function(...) {
-      message("Weight")
+      message("Cost")
       message("  id:       ", self$id)
       message("  name:     ", self$name)
       message("  variable: ", self$variable$repr())

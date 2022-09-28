@@ -253,10 +253,10 @@ solutionResults_html <- function(id, style, class, ...) {
                     ),
                     title = paste(
                       "Costs results for the solution.",
-                      "This panel shows how much the Weights are covered",
-                      "by the solution. It also shows how much the Weights are",
+                      "This panel shows how much the Cost layers are covered",
+                      "by the solution. It also shows how much the costs are",
                       "covered by the Includes used to generate the solution,",
-                      "and Weight factors used to generate the solution."
+                      "and weight factors used to generate the solution."
                     ),
                     options = list(container = "body")
                   )

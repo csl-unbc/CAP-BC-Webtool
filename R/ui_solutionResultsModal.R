@@ -73,8 +73,8 @@ solutionResultsModal <- function(id, trigger) {
                   label = NULL,
                   choices = c(
                     `<i class='fa fa-chart-line'></i>Summary` = "summary",
-                    `<i class='fa fa-star'></i>Themes` = "themes",
-                    `<i class='fa fa-weight-hanging'></i>Weights` = "weights",
+                    `<i class='fa fa-star'></i>Planning features` = "themes",
+                    `<i class='fa fa-weight-hanging'></i>Costs` = "weights",
                     `<i class='fa fa-lock'></i>Includes` = "includes"
                   ),
                   justified = FALSE,

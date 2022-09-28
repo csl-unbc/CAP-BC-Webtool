@@ -527,7 +527,7 @@ Solution <- R6::R6Class(
           class = "display",
           htmltools::tags$thead(
             htmltools::tags$tr(
-              htmltools::tags$th(rowspan = 2, "Weight"),
+              htmltools::tags$th(rowspan = 2, "Cost"),
               htmltools::tags$th(rowspan = 2, "Status"),
               htmltools::tags$th(rowspan = 2, "Factor"),
               htmltools::tags$th(rowspan = 2, "Total (units)"),

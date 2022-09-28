@@ -261,7 +261,7 @@ solutionSettings_html <- function(id, style, class, ...) {
           `data-container` = "body",
           `data-trigger` = "hover",
           title = paste(
-            "Generate a new solution using the Themes, Weights, Includes,",
+            "Generate a new solution using the Planning features, Costs, Includes,",
             "and Settings"
           ),
           shinyFeedback::loadingButton(
