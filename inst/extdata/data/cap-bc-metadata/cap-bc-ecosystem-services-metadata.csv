@@ -1,5 +1,5 @@
-Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
-theme,Ecosystem Services,ecosystem_services/Ecosystem Carbon.tif,Ecosystem Carbon,"#ffffff, #798044",continuous,,km2*,FALSE,missing,,
-theme,Ecosystem Services,ecosystem_services/Net Primary Productivity.tif,Net Primary Productivity,"#ffffff, #697157",continuous,,km2*,FALSE,missing,,
-theme,Ecosystem Services,ecosystem_services/Recreation Provision.tif,Recreation Provision,"#ffffff, #dd9300",continuous,,km2*,FALSE,missing,,
-theme,Ecosystem Services,ecosystem_services/Freshwater Provision.tif,Freshwater Provision,"#ffffff, #001079",continuous,,km2*,FALSE,missing,,
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Status,Provenance,Description,Notes
+theme,Ecosystem Services,ecosystem_services/Ecosystem Carbon.tif,Ecosystem Carbon,"#ffffff, #798044",continuous,,km2*,FALSE,TRUE,missing,,
+theme,Ecosystem Services,ecosystem_services/Net Primary Productivity.tif,Net Primary Productivity,"#ffffff, #697157",continuous,,km2*,FALSE,TRUE,missing,,
+theme,Ecosystem Services,ecosystem_services/Recreation Provision.tif,Recreation Provision,"#ffffff, #dd9300",continuous,,km2*,FALSE,TRUE,missing,,
+theme,Ecosystem Services,ecosystem_services/Freshwater Provision.tif,Freshwater Provision,"#ffffff, #001079",continuous,,km2*,FALSE,TRUE,missing,,

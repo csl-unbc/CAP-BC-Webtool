@@ -1,3 +1,3 @@
-Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
-theme,Ecological connectivity,yale_6/Species movement to analog climates rcp8.5 2071-2100.tif,Species movement to analog climates,PuRd,continuous,,km2*,FALSE,missing,,
-theme,Ecological connectivity,yale_6/Current-flow centrality climate analogs rcp8.5 2071-2100.tif,Current-flow centrality climate analogs,YlOrRd,continuous,,km2*,FALSE,missing,,
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Status,Provenance,Description,Notes
+theme,Ecological connectivity,yale_6/Species movement to analog climates rcp8.5 2071-2100.tif,Species movement to analog climates,PuRd,continuous,,km2*,FALSE,TRUE,missing,,
+theme,Ecological connectivity,yale_6/Current-flow centrality climate analogs rcp8.5 2071-2100.tif,Current-flow centrality climate analogs,YlOrRd,continuous,,km2*,FALSE,TRUE,missing,,

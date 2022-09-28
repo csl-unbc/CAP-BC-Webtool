@@ -149,7 +149,8 @@ birds_names <- file.path(birds_path, "Birds.csv") %>% read_csv()
 birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
                           "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
-                          "Provenance"=numeric(0), "Description"=numeric(0), "Notes"=numeric(0))
+                          "Status"=numeric(0), "Provenance"=numeric(0), "Description"=numeric(0),
+                          "Notes"=numeric(0))
 for (file in birds_current_list) {
   # prepare the raster file
   prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
@@ -158,7 +159,7 @@ for (file in birds_current_list) {
   bird_code <- unlist(strsplit(basename(file), " "))[[4]]
   bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
   birds_table[nrow(birds_table)+1, ] <- c("theme", "Current patterns of biodiversity", glue("yale_1/Birds/{basename(file)}"),
-                                           glue("Bird: {bird_name}"), "Blues", "continuous", "", "km2*", "FALSE", "missing", "", "")
+                                           glue("Bird: {bird_name}"), "Blues", "continuous", "", "km2*", "FALSE", "TRUE", "missing", "", "")
 }
 write.csv(birds_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"), "cap-bc-yale1-birds-metadata.csv"), row.names=FALSE)
 
@@ -169,7 +170,8 @@ trees_names <- file.path(trees_path, "Trees.csv") %>% read_csv()
 trees_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
                           "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
-                          "Provenance"=numeric(0), "Description"=numeric(0), "Notes"=numeric(0))
+                          "Status"=numeric(0), "Provenance"=numeric(0), "Description"=numeric(0),
+                          "Notes"=numeric(0))
 for (file in trees_current_list) {
   # prepare the raster file
   raster_layer <- file %>% raster()
@@ -180,7 +182,7 @@ for (file in trees_current_list) {
   tree_code <- unlist(strsplit(basename(file), " "))[[4]]
   tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
   trees_table[nrow(trees_table)+1, ] <- c("theme", "Current patterns of biodiversity", glue("yale_1/Trees/{basename(file)}"),
-                                           glue("Tree: {tree_name}"), "Greens", "continuous", "", "km2*", "FALSE", "missing", "", "")
+                                           glue("Tree: {tree_name}"), "Greens", "continuous", "", "km2*", "FALSE", "TRUE", "missing", "", "")
 }
 write.csv(trees_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"), "cap-bc-yale1-trees-metadata.csv"), row.names=FALSE)
 
@@ -257,7 +259,8 @@ birds_names <- file.path(birds_path, "Birds.csv") %>% read_csv()
 birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
                           "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
-                          "Provenance"=numeric(0), "Description"=numeric(0), "Notes"=numeric(0))
+                          "Status"=numeric(0), "Provenance"=numeric(0), "Description"=numeric(0),
+                          "Notes"=numeric(0))
 for (file in birds_current_list) {
   # prepare the raster file
   prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
@@ -266,7 +269,7 @@ for (file in birds_current_list) {
   bird_code <- unlist(strsplit(basename(file), " "))[[4]]
   bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
   birds_table[nrow(birds_table)+1, ] <- c("theme", "Future climate space", glue("yale_4/Birds/{basename(file)}"),
-                                           glue("Bird future: {bird_name}"), "Blues", "continuous", "", "km2*", "FALSE", "missing", "", "")
+                                           glue("Bird future: {bird_name}"), "Blues", "continuous", "", "km2*", "FALSE", "TRUE", "missing", "", "")
 }
 write.csv(birds_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"), "cap-bc-yale4-birds-metadata.csv"), row.names=FALSE)
 
@@ -277,7 +280,8 @@ trees_names <- file.path(trees_path, "Trees.csv") %>% read_csv()
 trees_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(0),
                           "Name"=numeric(0), "Color"=numeric(0), "Legend"=numeric(0),
                           "Labels"=numeric(0), "Unit"=numeric(0), "Visible"=numeric(0),
-                          "Provenance"=numeric(0), "Description"=numeric(0), "Notes"=numeric(0))
+                          "Status"=numeric(0), "Provenance"=numeric(0), "Description"=numeric(0),
+                          "Notes"=numeric(0))
 for (file in trees_current_list) {
   # prepare the raster file
   raster_layer <- file %>% raster()
@@ -288,7 +292,7 @@ for (file in trees_current_list) {
   tree_code <- unlist(strsplit(basename(file), " "))[[4]]
   tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
   trees_table[nrow(trees_table)+1, ] <- c("theme", "Future climate space", glue("yale_4/Trees/{basename(file)}"),
-                                           glue("Tree future: {tree_name}"), "Greens", "continuous", "", "km2*", "FALSE", "missing", "", "")
+                                           glue("Tree future: {tree_name}"), "Greens", "continuous", "", "km2*", "FALSE", "TRUE", "missing", "", "")
 }
 write.csv(trees_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"), "cap-bc-yale4-trees-metadata.csv"), row.names=FALSE)
 

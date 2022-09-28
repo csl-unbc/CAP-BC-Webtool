@@ -1,6 +1,6 @@
-Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Provenance,Description,Notes
-theme,Climate refugia,yale_5/BEC Zones Overlap.tif,BEC Zones Overlap,#d68f00,manual,"absence,presence",km2*,FALSE,missing,,
-theme,Climate refugia,yale_5/Songbird Macrorefugia rcp4.5 2071-2100.tif,Songbird Macrorefugia,YlGnBu,continuous,,km2*,FALSE,missing,,
-theme,Climate refugia,yale_5/Tree Macrorefugia rcp4.5 2071-2100.tif,Tree Macrorefugia,YlGn,continuous,,km2*,FALSE,missing,,
-theme,Climate refugia,yale_5/Climatic refugia rcp8.5 2071-2100.tif,Future climate refugia,"#ffffff,#83e6c2,#4d9b8d,#19535b",continuous,,km2*,FALSE,missing,,
-theme,Climate refugia,yale_5/Ecoregional Refugia Index rcp4.5 2071-2100.tif,Ecoregional Refugia Index,"#ffffff,#19535b",continuous,,km2*,FALSE,missing,,
+Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Status,Provenance,Description,Notes
+theme,Climate refugia,yale_5/BEC Zones Overlap.tif,BEC Zones Overlap,#d68f00,manual,"absence,presence",km2*,FALSE,TRUE,missing,,
+theme,Climate refugia,yale_5/Songbird Macrorefugia rcp4.5 2071-2100.tif,Songbird Macrorefugia,YlGnBu,continuous,,km2*,FALSE,TRUE,missing,,
+theme,Climate refugia,yale_5/Tree Macrorefugia rcp4.5 2071-2100.tif,Tree Macrorefugia,YlGn,continuous,,km2*,FALSE,TRUE,missing,,
+theme,Climate refugia,yale_5/Climatic refugia rcp8.5 2071-2100.tif,Future climate refugia,"#ffffff,#83e6c2,#4d9b8d,#19535b",continuous,,km2*,FALSE,TRUE,missing,,
+theme,Climate refugia,yale_5/Ecoregional Refugia Index rcp4.5 2071-2100.tif,Ecoregional Refugia Index,"#ffffff,#19535b",continuous,,km2*,FALSE,TRUE,missing,,
