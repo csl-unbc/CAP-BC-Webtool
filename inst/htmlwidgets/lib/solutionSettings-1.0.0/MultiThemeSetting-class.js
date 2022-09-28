@@ -222,7 +222,7 @@ class MultiThemeSetting {
       this.group_goal_el.noUiSlider.on("update", function (values, handle) {
         group_goal_label_el.innerText =
           group_goal_label_text(
-            values[handle], that.single_total_values, "Goal", that.units);
+            values[handle], that.single_total_values, "Target", that.units);
       });
       //// set status listener to enable/disable widget on click
       this.status_el.addEventListener("change", function () {
@@ -307,7 +307,7 @@ class MultiThemeSetting {
           single_goal_label_el[i].innerText =
             single_goal_label_text(
               values[handle], that.single_total_values[i],
-              "Goal", that.units);
+              "Target", that.units);
         });
         //// set status listener to enable/disable widget on click
         this.single_status_el[i].addEventListener("change", function () {

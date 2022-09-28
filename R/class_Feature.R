@@ -132,7 +132,7 @@ Feature <- R6::R6Class(
       message("  hidden:   ", self$hidden)
       message("  status:   ", self$status)
       message("  current:  ", round(self$current, 2))
-      message("  goal:     ", round(self$goal, 2))
+      message("  target:     ", round(self$goal, 2))
       invisible(self)
     },
 
@@ -148,7 +148,7 @@ Feature <- R6::R6Class(
         self$name,
         " ", start, "status: ", self$status,
         ", current: ", round(self$current, 2),
-        ", goal: ", round(self$goal, 2), end, nl(),
+        ", target: ", round(self$goal, 2), end, nl(),
         "  variable: ", self$variable$repr()
       )
     },

@@ -481,7 +481,7 @@ Solution <- R6::R6Class(
               ),
               htmltools::tags$th(rowspan = 2),
               htmltools::tags$th(
-                class = "dt-center", colspan = 2, "Goal"
+                class = "dt-center", colspan = 2, "Target"
               ),
               htmltools::tags$th(rowspan = 2),
               htmltools::tags$th(

@@ -23,7 +23,7 @@ class ThemeSolutionChart {
       .startAngle(0)
       .endAngle((d) => this.scale(d));
     this.locale = {
-      feature_goal: "Goal",
+      feature_goal: "Target",
       feature_current_held: "Current",
       feature_solution_held: "Solution",
     };
@@ -82,7 +82,7 @@ class ThemeSolutionChart {
       `(${Math.round(d_current[1][0] * d_current[4])} ${d_current[6]})`;
     /// goal stats
     let goal_stats =
-      `Goal: ${Math.round(d_goal[1][0] * 100)}% ` +
+      `Target: ${Math.round(d_goal[1][0] * 100)}% ` +
       `(${Math.round(d_goal[1][0] * d_goal[4])} ${d_goal[6]})`;
     /// solution stats
     const solution_stats =

@@ -83,7 +83,7 @@ class SingleThemeSetting {
       /// update goal label
       this.goal_el.noUiSlider.on("update", function (values, handle) {
         goal_label_el.innerText = single_goal_label_text(
-          values[handle], that.total, "Goal", that.units);
+          values[handle], that.total, "Target", that.units);
       });
       /// enable/disable widget on click
       this.status_el.addEventListener("change", function () {

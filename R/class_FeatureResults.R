@@ -65,7 +65,7 @@ FeatureResults <- R6::R6Class(
       message("  id:      ", self$id)
       message("  status: ", self$status)
       message("  current: ", round(self$current, 2))
-      message("  goal: ", round(self$goal, 2))
+      message("  target: ", round(self$goal, 2))
       message("  held: ", round(self$held, 2))
       message(
         "  feature: ",
@@ -86,7 +86,7 @@ FeatureResults <- R6::R6Class(
         self$name,
         " ", start, "status: ", self$status,
         ", current: ", round(self$current, 2), end, nl(),
-        ", goal: ", round(self$goal, 2), end, nl(),
+        ", target: ", round(self$goal, 2), end, nl(),
         ", held: ", round(self$held, 2), end, nl(),
         "  feature: ", self$feature$repr()
       )

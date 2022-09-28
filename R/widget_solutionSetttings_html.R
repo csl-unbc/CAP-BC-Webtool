@@ -41,7 +41,7 @@ ss_goal_component_scaffold <- function() {
           `data-placement` = "top",
           `data-container` = "body",
           `data-trigger` = "hover",
-          title = "Goal for generating solutions"
+          title = "Target for generating solutions"
         )
       )
     ),
@@ -96,7 +96,7 @@ ss_group_goal_component_scaffold <- function() {
           `data-placement` = "top",
           `data-container` = "body",
           `data-trigger` = "hover",
-          title = "Goal for generating solutions"
+          title = "Target for generating solutions"
         )
       ),
     ),

@@ -225,8 +225,8 @@ solutionResults_html <- function(id, style, class, ...) {
                         `data-toggle` = "tooltip",
                         `data-placement` = "top",
                         `data-container` = "body",
-                        title = "Goal used to generate solution",
-                        "Goal"
+                        title = "Target used to generate solution",
+                        "Target:"
                       ),
                     ),
                     htmltools::tags$span(
