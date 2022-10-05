@@ -99,6 +99,13 @@ importModal <- function(id) {
         choices = c("No built-in projects available" = "NA"),
         multiple = FALSE,
         selected = "CAP-BC-5km"
+      ),
+      shiny::hr(),
+      shiny::checkboxInput(
+        paste0(id, "_builtin_hide_layers"),
+        shiny::HTML("<b> Hide theme, weight and include layers </b> <br>
+                    recommended for large projects"),
+        value = FALSE
       )
     ),
 
