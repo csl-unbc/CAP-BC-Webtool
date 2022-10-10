@@ -105,7 +105,15 @@ div.provenance-container {
   display: none;
 }
 
-/* disable Settings for new solution sidebar */
+/* disable entire block of Settings */
 #newSolutionPane_settings_collapse > div[value="newSolutionPane_settings_collapseParametersPanel"] {
+  /*display: none;*/
+}
+/* disable the spatial clustering */
+div#setting-spatial_parameter.parameter-setting.solution-setting {
+  display: none;
+}
+/* disable the hide new solution from map */
+div#setting-solution_layer_parameter.parameter-setting.solution-setting {
   display: none;
 }
