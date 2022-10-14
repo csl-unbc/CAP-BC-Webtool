@@ -46,9 +46,17 @@ colors:
   height: 22px;
   margin-top: 4px;
 }
+.uni-logos {
+  float: right;
+}
+.uni-logos img {
+  height: 18px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
 .header .wrap {
   display: inline-block;
-  margin-right: 241px;
+  margin-right: 194px;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
