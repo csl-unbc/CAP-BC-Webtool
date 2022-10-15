@@ -408,6 +408,11 @@ current_protected_areas <- file.path(cap_bc_input, "Layers - Current/Protected A
 prepare_raster_file(current_protected_areas, NA, out_path = out_path, norm = TRUE,
                     dtype = c("INT1U", "INT1U"), fill_nodata = NA)
 
+# NGO Conservation Areas
+ngo_conservation_areas <- file.path(cap_bc_input, "Layers - Current/Protected Areas/NGO Conservation Areas.tif")
+prepare_raster_file(ngo_conservation_areas, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+
 # Private Lands
 private_lands <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Private Lands.tif")
 prepare_raster_file(private_lands, NA, out_path = out_path, norm = TRUE,

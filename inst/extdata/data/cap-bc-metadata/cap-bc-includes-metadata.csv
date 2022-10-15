@@ -1,2 +1,3 @@
 Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Status,Provenance,Description,Notes
 include,Protected Areas,"includes/BC Parks, Ecological Reserves, and Protected Areas.tif",Current Protected Areas,#b3e2cd,manual,"not included,included",km2,TRUE,TRUE,missing,,
+include,Protected Areas,includes/NGO Conservation Areas.tif,NGO Conservation Areas,#e27561,manual,"not included,included",km2,FALSE,FALSE,missing,,
