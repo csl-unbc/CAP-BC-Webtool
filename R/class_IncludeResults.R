@@ -57,7 +57,7 @@ IncludeResults <- R6::R6Class(
       message("  id:      ", self$id)
       message("  status: ", self$status)
       message("  held: ", round(self$held, 2))
-      message("  current: ", self$include$repr())
+      message("  include: ", self$include$repr())
       invisible(self)
     },
 
@@ -73,7 +73,7 @@ IncludeResults <- R6::R6Class(
         self$include$name,
         " ", start, "status: ", self$status,
         ", held: ", round(self$held, 2), end, nl(),
-        "  current: ", self$include$repr()
+        "  include: ", self$include$repr()
       )
     },
 
