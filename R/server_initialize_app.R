@@ -83,7 +83,8 @@ server_initialize_app <- quote({
     ## update select input with project names
     shiny::updateSelectInput(
       inputId = "importModal_name",
-      choices = stats::setNames(project_data$path, project_data$name)
+      choices = c('Choose a project' = '', stats::setNames(project_data$path, project_data$name)),
+      selected = NULL
     )
   } else {
     ## disable import button since no available projects

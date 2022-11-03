@@ -97,8 +97,7 @@ importModal <- function(id) {
         inputId = paste0(id, "_name"),
         label = "Select project",
         choices = c("No built-in projects available" = "NA"),
-        multiple = FALSE,
-        selected = "CAP-BC-5km"
+        multiple = FALSE
       ),
       shiny::checkboxInput(
         paste0(id, "_builtin_hide_layers"),
