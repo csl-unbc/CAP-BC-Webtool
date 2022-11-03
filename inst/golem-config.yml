@@ -41,8 +41,8 @@ default:
   worker_time_out: 7200 # two hours
 
   ## contact details
-  default_project_name: "Richard Schuster"
-  default_project_email: "richard.schuster@natureconservancy.ca"
+  default_project_name: "Xavier Llano"
+  default_project_email: "llano@unbc.ca"
 
 # development configuration
 dev:
