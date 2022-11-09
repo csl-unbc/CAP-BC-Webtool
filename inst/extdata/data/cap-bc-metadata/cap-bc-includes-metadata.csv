@@ -1,4 +1,4 @@
 Type,Theme,File,Name,Color,Legend,Labels,Unit,Visible,Status,Provenance,Description,Notes
-include,Protected Areas,"includes/BC Parks, Ecological Reserves, and Protected Areas.tif",Current Protected Areas,#50af57,manual,"not included,included",km2,TRUE,TRUE,missing,,
+include,Protected Areas,includes/Official BC Parks and Protected Areas.tif,Official BC Parks and Protected Areas,#50af57,manual,"not included,included",km2,TRUE,TRUE,missing,,
 include,Protected Areas,includes/Canadian Protected and Conserved Areas Database.tif,Canadian Protected and Conserved Areas Database,#5faf92,manual,"not included,included",km2,FALSE,FALSE,missing,,
 include,Protected Areas,includes/NGO Conservation Areas.tif,NGO Conservation Areas,#e27561,manual,"not included,included",km2,FALSE,FALSE,missing,,

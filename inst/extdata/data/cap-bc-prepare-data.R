@@ -403,8 +403,8 @@ prepare_raster_file(relative_climatic_dissimilarity, NA, out_path = out_path, no
 
 out_path <- "includes"
 
-# Current Protected Areas
-current_protected_areas <- file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/BC Parks, Ecological Reserves, and Protected Areas.tif")
+# Official BC Parks and Protected Areas
+current_protected_areas <- file.path(cap_bc_input, "Layers - Current/Protected Areas/BC Parks, Ecological Reserves, and Protected Areas/Official BC Parks and Protected Areas.tif")
 prepare_raster_file(current_protected_areas, NA, out_path = out_path, norm = TRUE,
                     dtype = c("INT1U", "INT1U"), fill_nodata = NA)
 
