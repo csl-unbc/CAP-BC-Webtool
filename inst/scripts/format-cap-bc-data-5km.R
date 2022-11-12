@@ -72,6 +72,7 @@ theme_units <- metadata$Unit[metadata$Type == "theme"]
 theme_visible <- metadata$Visible[metadata$Type == "theme"]
 theme_status <- metadata$Status[metadata$Type == "theme"]
 theme_provenance <- metadata$Provenance[metadata$Type == "theme"]
+theme_description <- metadata$Description[metadata$Type == "theme"]
 
 ## Prepare include inputs
 include_data <- raster_data[[which(metadata$Type == "include")]]
@@ -83,8 +84,9 @@ include_units <- metadata$Unit[metadata$Type == "include"]
 include_visible <- metadata$Visible[metadata$Type == "include"]
 include_status <- metadata$Status[metadata$Type == "include"]
 include_provenance <- metadata$Provenance[metadata$Type == "include"]
+include_description <- metadata$Description[metadata$Type == "include"]
 
-## Prepare weight inputs
+## Prepare weight (costs) inputs
 weight_data <- raster_data[[which(metadata$Type == "weight")]]
 weight_data <- raster::clamp(weight_data, lower = 0)
 weight_names <- metadata$Name[metadata$Type == "weight"]
@@ -95,6 +97,7 @@ weight_units <- metadata$Unit[metadata$Type == "weight"]
 weight_visible <- metadata$Visible[metadata$Type == "weight"]
 weight_status <- metadata$Status[metadata$Type == "weight"]
 weight_provenance <- metadata$Provenance[metadata$Type == "weight"]
+weight_description <- metadata$Description[metadata$Type == "weight"]
 
 ## validate processed data  TODO
 # assertthat::assert_that(
@@ -133,6 +136,7 @@ themes <- lapply(seq_along(unique(theme_groups)), function(i) {
   curr_theme_visible <- theme_visible[theme_groups == curr_theme_groups]
   curr_theme_status <- theme_status[theme_groups == curr_theme_groups]
   curr_theme_provenance <- theme_provenance[theme_groups == curr_theme_groups]
+  curr_theme_description <- theme_description[theme_groups == curr_theme_groups]
 
   ## 3. Create list of features (j) associated with group
   curr_features <- lapply(seq_along(curr_theme_names), function(j) {
@@ -156,8 +160,8 @@ themes <- lapply(seq_along(unique(theme_groups)), function(i) {
          units = curr_theme_units[j],
          type = curr_theme_legend[j],
          colors = unlist(lapply(strsplit(curr_theme_colors[j], ","), trimws)),
-         provenance = curr_theme_provenance[j],
-         labels = "missing"
+         labels = "missing",
+         provenance = curr_theme_provenance[j]
       )
     }
     new_feature(
@@ -167,6 +171,7 @@ themes <- lapply(seq_along(unique(theme_groups)), function(i) {
       limit_goal = 0,
       visible = curr_theme_visible[j],
       status = curr_theme_status[j],
+      description = curr_theme_description[j],
       variable = v
     )
   })
@@ -189,6 +194,7 @@ includes <- lapply(seq_len(raster::nlayers(include_data)), function(i) {
     name = include_names[i],
     visible = include_visible[i],
     status = include_status[i],
+    description = include_description[i],
     variable = new_variable(
       dataset = dataset,
       index = names(include_data)[i],
@@ -232,7 +238,8 @@ weights <- lapply(seq_len(raster::nlayers(weight_data)), function(i) {
     )
   }
   ## Create weight
-  new_weight(name = weight_names[i], variable = v, visible = weight_visible[i], status = weight_status[i])
+  new_weight(name = weight_names[i], variable = v, description = weight_description[i],
+             visible = weight_visible[i], status = weight_status[i])
 })
 
 # Export Where To Work objects ----
