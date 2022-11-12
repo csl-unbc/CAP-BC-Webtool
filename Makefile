@@ -26,6 +26,9 @@ data:
 	R --slave -e "source('inst/scripts/format-cap-bc-data-1km.R')"
 	R --slave -e "source('inst/scripts/format-cap-bc-data-5km.R')"
 
+data-test:
+	R --slave -e "source('inst/scripts/format-cap-bc-data-5km.R')"
+
 ## copy data to production directory
 prod-data:
 	mkdir -p /usr/local/lib/R/site-library/wheretowork/extdata/projects
@@ -34,6 +37,8 @@ prod-data:
 	mv inst/extdata/projects/cap_bc_5km /usr/local/lib/R/site-library/wheretowork/extdata/projects/
 
 cap-bc: data prod-data
+
+cap-bc-test: data-test
 	
 ## rebuild readme
 readme:

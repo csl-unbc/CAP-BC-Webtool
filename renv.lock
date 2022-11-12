@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.1.2",
+    "Version": "4.2.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -221,7 +221,7 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.0.0",
+      "Version": "3.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "096829b701eec2d2b4538be63de97e75"
@@ -703,13 +703,6 @@
       "Repository": "CRAN",
       "Hash": "0bde42ee282efb18c7c4e63822f5b4f7"
     },
-    "lobstr": {
-      "Package": "lobstr",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3354c874f6008f7f1e418526df8ecd8a"
-    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.1",
@@ -826,7 +819,7 @@
       "RemoteRef": "master",
       "RemoteSha": "ce9781a15c7ea07df9fb17a11295ba4abec0b54b",
       "Remotes": "r-lib/downlit",
-      "Hash": "b8e79b9aa76014e7c69feb17203a90b2"
+      "Hash": "9a2dde79717e20d811de0fc0200a3e1a"
     },
     "pkgload": {
       "Package": "pkgload",
@@ -910,13 +903,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "50b405c6419e921b9e9360cc9ebbcf2d"
-    },
-    "pryr": {
-      "Package": "pryr",
-      "Version": "0.1.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3fb39bed6e21e21cdb79a3203c6a198e"
     },
     "ps": {
       "Package": "ps",
@@ -1023,10 +1009,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.11",
+      "Version": "1.0.6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "515f341d3affe0de9e4a7f762efb0456"
+      "Hash": "4ed1f8336c8d52c3e750adcdc57228a7"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -1219,10 +1205,10 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.0.2",
+      "Version": "3.1.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "495e0434d9305716b6a87031570ce109"
+      "Hash": "6e3c4843f1ed0d3d90f35498671a001c"
     },
     "textshaping": {
       "Package": "textshaping",
@@ -1310,10 +1296,10 @@
     },
     "waldo": {
       "Package": "waldo",
-      "Version": "0.2.5",
+      "Version": "0.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "20c45f1d511a3f730b7b469f4d11e104"
+      "Hash": "035fba89d0c86e2113120f93301b98ad"
     },
     "whereami": {
       "Package": "whereami",
@@ -1331,7 +1317,7 @@
     },
     "withr": {
       "Package": "withr",
-      "Version": "2.4.2",
+      "Version": "2.4.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "ad03909b44677f930fa156d47d7a3aeb"
