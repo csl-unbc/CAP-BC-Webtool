@@ -226,16 +226,16 @@ prepare_raster_file(karst_potential_areas, NA, out_path = yale_path, norm = TRUE
 
 yale_path <- "yale_4"
 
-# BEC future
+# BEC zone projections
 BEC_future_list <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/BEC Zones Projection/By Zones/") %>%
   list.files(pattern = "*2071-2100.tif$", full.names = TRUE)
 for (file in BEC_future_list) {
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_future"), norm = TRUE,
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC projections"), norm = TRUE,
                       dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
 
 # Pinch Point BEC Zone {16 zones}
-BEC_pinch_points <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Pinch Point BEC Zones/") %>%
+BEC_pinch_points <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/Pinch Point BEC Zones/") %>%
   list.files(pattern = "*.tif$", full.names = TRUE)
 for (file in BEC_pinch_points) {
   prepare_raster_file(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE,
@@ -317,9 +317,9 @@ Trees_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and S
 prepare_raster_file(Trees_refugia, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
-# Climatic refugia
+# Potencial Climatic Refugia
 Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future climate refugia/",
-                              "Climatic refugia rcp8.5 2071-2100.tif")
+                              "Potencial Climatic Refugia rcp8.5 2071-2100.tif")
 prepare_raster_file(Climatic_refugia, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
 
@@ -387,6 +387,11 @@ prepare_raster_file(road_density, NA, out_path = out_path, norm = TRUE,
 # Forward multivariate climatic velocity
 forward_multivariate_climatic_velocity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Multivariate climatic velocity/Forward multivariate climatic velocity rcp4.5 2071-2100.tif")
 prepare_raster_file(forward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE,
+                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+
+# Backward multivariate climatic velocity
+backward_multivariate_climatic_velocity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Multivariate climatic velocity/Backward multivariate climatic velocity rcp4.5 2071-2100.tif")
+prepare_raster_file(backward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Absolute climatic dissimilarity
