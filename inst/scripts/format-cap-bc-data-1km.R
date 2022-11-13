@@ -160,7 +160,6 @@ themes <- lapply(seq_along(unique(theme_groups)), function(i) {
          units = curr_theme_units[j],
          type = curr_theme_legend[j],
          colors = unlist(lapply(strsplit(curr_theme_colors[j], ","), trimws)),
-         provenance = curr_theme_provenance[j],
          labels = "missing",
          provenance = curr_theme_provenance[j]
       )
