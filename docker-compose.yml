@@ -7,7 +7,7 @@ services:
       target: shiny
     image: naturecons/wheretowork
     ports:
-      - "3939:3838"
+      - "127.0.0.1:3939:3838"
     environment:
       # environmental variables defined in ./.env
       - FORCE_DEFAULT_PROJECTS
