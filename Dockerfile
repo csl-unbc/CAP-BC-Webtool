@@ -1,5 +1,6 @@
-# base image
-FROM rocker/shiny:4.2 AS base
+############################################
+# base image: xaviercll/wheretowork-base
+FROM rocker/shiny:4.2.2 AS base
 
 ## remove example apps
 RUN rm -rf /srv/shiny-server/*
@@ -34,6 +35,10 @@ RUN cd /renv && \
     Rscript -e 'install.packages(c("renv", "remotes"))' && \
     Rscript -e 'renv::restore()'
 
+############################################
+# shiny image
+FROM base AS shiny
+
 ## install app
 RUN mkdir /app
 COPY inst /app/inst
@@ -48,12 +53,6 @@ RUN cd /app && \
 ## prepare data cap-bc project
 COPY Makefile /app
 RUN cd /app && make cap-bc
-
-# set command
-CMD ["/bin/bash"]
-
-# shiny image
-FROM base AS shiny
 
 ## set user
 USER shiny
