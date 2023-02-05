@@ -1,43 +1,5 @@
-############################################
-# base image: xaviercll/wheretowork-base
-FROM rocker/shiny:4.2.2 AS base
-
-## remove example apps
-RUN rm -rf /srv/shiny-server/*
-
-## install system libraries
-RUN apt-get update && apt-get install -y \
-  software-properties-common
-
-## install R package dependencies
-RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable && \
-    apt-get update && apt-get install -y \
-      libcurl4-gnutls-dev \
-      libssl-dev \
-      libudunits2-dev \
-      libudunits2-dev \
-      libgdal-dev \
-      libgeos-dev \
-      libproj-dev \
-      coinor-libcbc-dev \
-      coinor-libclp-dev \
-      coinor-libsymphony-dev \
-      coinor-libcgl-dev \
-      libharfbuzz-dev \
-      libfribidi-dev \
-      libfontconfig1-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-## install R packages
-RUN mkdir /renv
-COPY renv.lock /renv/renv.lock
-RUN cd /renv && \
-    Rscript -e 'install.packages(c("renv", "remotes"))' && \
-    Rscript -e 'renv::restore()'
-
-############################################
-# shiny image
-FROM base AS shiny
+# base image
+FROM xaviercll/wheretowork-base:4.2.2
 
 ## install app
 RUN mkdir /app

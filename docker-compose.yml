@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: shiny
-    image: naturecons/wheretowork:latest
     ports:
       - "127.0.0.1:3939:3838"
     environment:
