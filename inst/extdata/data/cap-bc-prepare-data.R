@@ -88,7 +88,7 @@ for (file in BEC_now) {
                       dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
 # unrepresentative_BEC_zones
-unrepresentative_BEC_zones <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Unrepresentative BEC Zones.tif")
+unrepresentative_BEC_zones <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Under-represented BEC zones.tif")
 prepare_raster_file(unrepresentative_BEC_zones, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = NA)
 
