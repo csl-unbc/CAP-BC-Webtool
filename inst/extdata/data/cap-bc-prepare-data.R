@@ -1,3 +1,6 @@
+# set the current working directory to "/home/xavier/Projects/UNBC/CAP-BC-Webtool"
+setwd("/home/xavier/Projects/UNBC/CAP-BC-Webtool")
+
 ### Load packages
 library(raster)
 library(here)
@@ -24,55 +27,72 @@ cap_bc_input <- "/home/xavier/Dropbox/CAB-BC/input"
 # cap_bc_output <- "/home/xavier/Projects/UNBC/CAP-BC-Webtool/inst/extdata/data/cap-bc-data/"
 # cap_bc_output <- "/home/xavier/Data/test_capbc/"
 
-PU_1km <- raster(here::here("inst/extdata/data/cap-bc-data-1km/Planning Units.tif")) %>% na_if(0)  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
-PU_5km <- raster(here::here("inst/extdata/data/cap-bc-data-5km/Planning Units.tif")) %>% na_if(0)  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
+PU_1km <- raster(here::here("inst/extdata/data/cap-bc-data-1km/Planning Units.tif"))  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
+PU_5km <- raster(here::here("inst/extdata/data/cap-bc-data-5km/Planning Units.tif"))  # %>% raster::projectRaster(crs = as(sf::st_crs(3857), "CRS"), method = "ngb")
 
-prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = NA) {
+# convert zero to NA
+PU_1km[PU_1km==0] <- NA
+PU_5km[PU_5km==0] <- NA
+
+prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype, fill_nodata = NA, res) {
+
+  if (class(raster_layer)[1]!="RasterLayer") {
+    rl <- raster_file %>% raster()
+  }
+
+  if (res == "1km") {
+    PU <- PU_1km
+    cap_bc_dir <- "cap-bc-data-1km"
+  } else {
+    PU <- PU_5km
+    cap_bc_dir <- "cap-bc-data-5km"
+  }
+
+  file_name <- basename(raster_file)
+  # replace suffix from 1km and 5km Vector2PU convertion
+  file_name <- sub(' - 1km.tif', '.tif', file_name)
+  file_name <- sub(' - 5km.tif', '.tif', file_name)
+
+
+  #layer_name <- sub('\\..[^\\.]*$', '', file_name)
+
+  if (!is.na(fill_nodata)) {
+    rl[is.na(rl[])] <- fill_nodata
+  }
+  rl <- rl %>% raster::mask(PU)
+
+  # normalize layer to 0-1 km2 or 0-25 km2
+  if (norm) {
+    if (res == "1km") {
+      rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min))
+    } else {
+      rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min)) * 25
+    }
+  }
+
+  full_out_path <- file.path(here::here("inst/extdata/data/"), cap_bc_dir, out_path)
+  if (!dir.exists(full_out_path)) {dir.create(full_out_path, recursive = TRUE)}
+  writeRaster(rl, filename=file.path(full_out_path, file_name), format="GTiff", overwrite=TRUE, datatype=dtype)
+}
+
+prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = NA) {
 
   if (class(raster_layer)[1]!="RasterLayer") {
     raster_layer <- raster_file %>% raster()
   }
 
-  idx_list <- list(list(PU_1km, PU_5km), c("cap-bc-data-1km", "cap-bc-data-5km"))
-  idx_vect <- c(1:length(idx_list[[1]]))
+  # 1km resolution
+  dt <- dtype[1]
+  rl <- raster_layer
+  prepare_raw_raster_file(rl, raster_layer, out_path, norm, dt, fill_nodata, "1km")
 
-  for(i in idx_vect){
-    PU <- idx_list[[1]][[i]]
-    cap_bc_dir <- idx_list[[2]][[i]]
-
-    if (cap_bc_dir == "cap-bc-data-1km") {
-      # 1km resolution
-      dt <- dtype[1]
-      rl <- raster_layer
-    } else {
-      # 5km resolution
-      dt <- dtype[2]
-      method <- if (dt == "FLT4S") "bilinear" else "ngb"
-      rl <- raster::projectRaster(raster_layer, to = PU, method = method)
-    }
-
-    file_name <- basename(raster_file)
-    #layer_name <- sub('\\..[^\\.]*$', '', file_name)
-
-    if (!is.na(fill_nodata)) {
-      rl[is.na(rl[])] <- fill_nodata
-    }
-    rl <- rl %>% raster::mask(PU)
-
-    # normalize layer to 0-1 km2 or 0-25 km2
-    if (norm) {
-      if (cap_bc_dir == "cap-bc-data-1km") {
-        rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min))
-      } else {
-        rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min)) * 25
-      }
-    }
-
-    full_out_path <- file.path(here::here("inst/extdata/data/"), cap_bc_dir, out_path)
-    if (!dir.exists(full_out_path)) {dir.create(full_out_path, recursive = TRUE)}
-    writeRaster(rl, filename=file.path(full_out_path, file_name), format="GTiff", overwrite=TRUE, datatype=dt)
-  }
+  # 5km resolution
+  dt <- dtype[2]
+  method <- if (dt == "FLT4S") "bilinear" else "ngb"
+  rl <- raster::projectRaster(raster_layer, to = PU, method = method)
+  prepare_raw_raster_file(rl, raster_layer, out_path, norm, dt, fill_nodata, "5km")
 }
+
 
 ###################### CAP-BC Data ######################
 
