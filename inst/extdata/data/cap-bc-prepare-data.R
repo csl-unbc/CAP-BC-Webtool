@@ -115,16 +115,16 @@ for (file in BEC_current_5km) {
                       dtype = "FLT4S", fill_nodata = 0, res = "5km")
 }
 
-
 # unrepresentative_BEC_zones
 unrepresentative_BEC_zones <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Under-represented BEC zones.tif")
 prepare_raster_file(unrepresentative_BEC_zones, NA, out_path = yale_path, norm = TRUE,
                     dtype = c("FLT4S", "FLT4S"), fill_nodata = NA)
 
 # Critical habitat
-critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Critical Habitat.tif")
-prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = NA)
+critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Critical Habitat - 1km.tif")
+prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Critical Habitat - 5km.tif")
+prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Bison Capability
 bison_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Bison Capability.tif")
