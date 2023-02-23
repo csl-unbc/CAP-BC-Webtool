@@ -100,13 +100,22 @@ prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_
 
 yale_path <- "yale_1"
 
-# BEC now
-BEC_now <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/By Zones/") %>%
-  list.files(pattern = "*.tif$", full.names = TRUE)
-for (file in BEC_now) {
+# BEC zones current - 1km
+BEC_current_1km <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/By Zones/") %>%
+  list.files(pattern = "*1km.tif$", full.names = TRUE)
+for (file in BEC_current_1km) {
   prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_zones"), norm = TRUE,
-                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+                      dtype = "FLT4S", fill_nodata = 0, res = "1km")
 }
+# BEC zones current - 5km
+BEC_current_5km <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/By Zones/") %>%
+  list.files(pattern = "*5km.tif$", full.names = TRUE)
+for (file in BEC_current_5km) {
+  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC_zones"), norm = TRUE,
+                      dtype = "FLT4S", fill_nodata = 0, res = "5km")
+}
+
+
 # unrepresentative_BEC_zones
 unrepresentative_BEC_zones <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Under-represented BEC zones.tif")
 prepare_raster_file(unrepresentative_BEC_zones, NA, out_path = yale_path, norm = TRUE,
