@@ -172,16 +172,13 @@ prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE, dtype
 elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Elk Capability - 5km.tif")
 prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
-
 # Bird Species Richness
 bird_species_richness <- file.path(cap_bc_input, "Layers - Current/Species/Birds/Bird Species Richness.tif")
-prepare_raster_file(bird_species_richness, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(bird_species_richness, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Tree Species Richness
 tree_species_richness <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Tree Species Richness.tif")
-prepare_raster_file(tree_species_richness, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(tree_species_richness, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Birds Species Distribution Current
 birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
@@ -194,8 +191,7 @@ birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(
                           "Notes"=numeric(0))
 for (file in birds_current_list) {
   # prepare the raster file
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
-                      dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
   # add to the table
   bird_code <- unlist(strsplit(basename(file), " "))[[4]]
   bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
@@ -217,8 +213,7 @@ for (file in trees_current_list) {
   # prepare the raster file
   raster_layer <- file %>% raster()
   raster_layer[raster_layer == 200] <- 0
-  prepare_raster_file(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE,
-                      dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE, dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
   # add to the table
   tree_code <- unlist(strsplit(basename(file), " "))[[4]]
   tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
@@ -232,22 +227,21 @@ write.csv(trees_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"
 yale_path <- "yale_2"
 
 # Forest Age
-forest_age <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Forest Age.tif")
-prepare_raster_file(forest_age, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+forest_age <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Forest Age - 1km.tif")
+prepare_raster_file(forest_age, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "1km")
+forest_age <- file.path(cap_bc_input, "Layers - Current/Species/Trees/Forest Age - 5km.tif")
+prepare_raster_file(forest_age, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
 
 # Intact Forest Landscapes
 intact_forest_landscapes <- file.path(cap_bc_input, "Layers - Current/Biodiversity/Intact Forest Landscapes.tif")
 ifl<-raster(intact_forest_landscapes)
 ifl[ifl<=50]<-0
 ifl[ifl>50]<-1
-prepare_raster_file(intact_forest_landscapes, ifl, out_path = yale_path, norm = TRUE,
-                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+prepare_raster_file_1km_and_5km(intact_forest_landscapes, ifl, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = NA)
 
 # Wilderness
 wilderness <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Wilderness.tif")
-prepare_raster_file(wilderness, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(wilderness, NA, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 
 ########### YALE 3 - Geophysical setting
 
