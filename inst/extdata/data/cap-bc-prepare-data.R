@@ -131,39 +131,47 @@ critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitat
 prepare_raster_file(critical_habitat, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Bison Capability
-bison_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Bison Capability.tif")
-prepare_raster_file(bison_capability, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+bison_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Bison Capability - 1km.tif")
+prepare_raster_file(bison_capability, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+bison_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Bison Capability - 5km.tif")
+prepare_raster_file(bison_capability, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Moose Capability - Alaskan
-moose_capability_alaskan <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Alaskan.tif")
-prepare_raster_file(moose_capability_alaskan, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+moose_capability_alaskan <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Alaskan - 1km.tif")
+prepare_raster_file(moose_capability_alaskan, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+moose_capability_alaskan <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Alaskan - 5km.tif")
+prepare_raster_file(moose_capability_alaskan, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Moose Capability - Northwestern
-moose_capability_northwestern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Northwestern.tif")
-prepare_raster_file(moose_capability_northwestern, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+moose_capability_northwestern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Northwestern - 1km.tif")
+prepare_raster_file(moose_capability_northwestern, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+moose_capability_northwestern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Northwestern - 5km.tif")
+prepare_raster_file(moose_capability_northwestern, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Moose Capability - Shiras
-moose_capability_shiras <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Shiras.tif")
-prepare_raster_file(moose_capability_shiras, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+moose_capability_shiras <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Shiras - 1km.tif")
+prepare_raster_file(moose_capability_shiras, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+moose_capability_shiras <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Moose Capability - Shiras - 5km.tif")
+prepare_raster_file(moose_capability_shiras, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Caribou Capability - Boreal
-caribou_capability_boreal <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Boreal.tif")
-prepare_raster_file(caribou_capability_boreal, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+caribou_capability_boreal <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Boreal - 1km.tif")
+prepare_raster_file(caribou_capability_boreal, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+caribou_capability_boreal <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Boreal - 5km.tif")
+prepare_raster_file(caribou_capability_boreal, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Caribou Capability - Northern
-caribou_capability_northern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Northern.tif")
-prepare_raster_file(caribou_capability_northern, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+caribou_capability_northern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Northern - 1km.tif")
+prepare_raster_file(caribou_capability_northern, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+caribou_capability_northern <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Caribou Capability - Northern - 5km.tif")
+prepare_raster_file(caribou_capability_northern, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
 
 # Elk Capability
-elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Elk Capability.tif")
-prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = NA)
+elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Elk Capability - 1km.tif")
+prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "1km")
+elk_capability <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Elk Capability - 5km.tif")
+prepare_raster_file(elk_capability, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, "5km")
+
 
 # Bird Species Richness
 bird_species_richness <- file.path(cap_bc_input, "Layers - Current/Species/Birds/Bird Species Richness.tif")
