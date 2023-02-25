@@ -249,13 +249,13 @@ yale_path <- "yale_3"
 
 # Land Facet Diversity
 land_facets_diversity <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Land Facet Diversity.tif")
-prepare_raster_file(land_facets_diversity, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(land_facets_diversity, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Karst Potential Areas
-karst_potential_areas <- file.path(cap_bc_input, "Layers - Current/Geophysical/Geological Feature/Karst Potential Areas.tif")
-prepare_raster_file(karst_potential_areas, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+karst_potential_areas <- file.path(cap_bc_input, "Layers - Current/Geophysical/Geological Feature/Karst Potential Areas - 1km.tif")
+prepare_raster_file(karst_potential_areas, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "1km")
+karst_potential_areas <- file.path(cap_bc_input, "Layers - Current/Geophysical/Geological Feature/Karst Potential Areas - 5km.tif")
+prepare_raster_file(karst_potential_areas, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
 
 ########### YALE 4 - Future climate space
 
