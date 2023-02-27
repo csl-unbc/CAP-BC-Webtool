@@ -38,6 +38,8 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
 
   if (class(raster_layer)[1]!="RasterLayer") {
     rl <- raster_file %>% raster()
+  } else {
+    rl <- raster_layer
   }
 
   if (res == "1km") {
@@ -77,20 +79,21 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
 
 prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = NA) {
 
-  if (class(raster_layer)[1]!="RasterLayer") {
-    raster_layer <- raster_file %>% raster()
+  if (class(raster_layer)[1]=="RasterLayer") {
+    rl <- raster_layer
+  } else {
+    rl <- raster_file %>% raster()
   }
 
   # 1km resolution
   dt <- dtype[1]
-  rl <- raster_layer
-  prepare_raw_raster_file(rl, raster_layer, out_path, norm, dt, fill_nodata, "1km")
+  prepare_raster_file(raster_file, raster_layer, out_path, norm, dt, fill_nodata, "1km")
 
   # 5km resolution
   dt <- dtype[2]
   method <- if (dt == "FLT4S") "bilinear" else "ngb"
-  rl <- raster::projectRaster(raster_layer, to = PU, method = method)
-  prepare_raw_raster_file(rl, raster_layer, out_path, norm, dt, fill_nodata, "5km")
+  resamp_raster <- raster::projectRaster(rl, to = PU_5km, method = method)
+  prepare_raster_file(raster_file, resamp_raster, out_path, norm, dt, fill_nodata, "5km")
 }
 
 
@@ -265,27 +268,23 @@ yale_path <- "yale_4"
 BEC_future_list <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/BEC Zones Projection/By Zones/") %>%
   list.files(pattern = "*2071-2100.tif$", full.names = TRUE)
 for (file in BEC_future_list) {
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "BEC projections"), norm = TRUE,
-                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "BEC projections"), norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
 
 # Pinch Point BEC Zone {16 zones}
 BEC_pinch_points <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/Pinch Point BEC Zones/") %>%
   list.files(pattern = "*.tif$", full.names = TRUE)
 for (file in BEC_pinch_points) {
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE,
-                      dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
 }
 
 # Bird Species Richness
 bird_species_richness <- file.path(cap_bc_input, "Layers - Projection/Species/Birds/Bird Species Richness 2071-2100 rcp45.tif")
-prepare_raster_file(bird_species_richness, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(bird_species_richness, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Tree Species Richness
 tree_species_richness <- file.path(cap_bc_input, "Layers - Projection/Species/Trees/Tree Species Richness 2071-2100 rcp45.tif")
-prepare_raster_file(tree_species_richness, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(tree_species_richness, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Birds Species Distribution Future
 birds_path <- "/run/media/xavier/Xavier-ext4/CAP-BC/CAP-BC-Data/original-input/Layers - Projection/Species/Birds"
@@ -298,8 +297,7 @@ birds_table <- data.frame("Type"=numeric(0), "Theme"=numeric(0), "File"=numeric(
                           "Notes"=numeric(0))
 for (file in birds_current_list) {
   # prepare the raster file
-  prepare_raster_file(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE,
-                      dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "Birds"), norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
   # add to the table
   bird_code <- unlist(strsplit(basename(file), " "))[[4]]
   bird_name <- birds_names[birds_names$CODE == bird_code,]$NAME
@@ -321,8 +319,7 @@ for (file in trees_current_list) {
   # prepare the raster file
   raster_layer <- file %>% raster()
   raster_layer[raster_layer == 200] <- 0
-  prepare_raster_file(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE,
-                      dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, raster_layer, out_path = file.path(yale_path, "Trees"), norm = TRUE, dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
   # add to the table
   tree_code <- unlist(strsplit(basename(file), " "))[[4]]
   tree_name <- trees_names[trees_names$Code == tree_code,]$Common.Name
@@ -336,33 +333,28 @@ write.csv(trees_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"
 yale_path <- "yale_5"
 
 # BEC Zones Overlap
-BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap.tif")
-prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap - 1km.tif")
+prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE, dtype = "INT1U", fill_nodata = 0, "1km")
+BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap - 5km.tif")
+prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
 
 # Songbird Macrorefugia rcp4.5 2071-2100
-Birds_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/",
-                           "Songbird Macrorefugia rcp4.5 2071-2100.tif")
-prepare_raster_file(Birds_refugia, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+Birds_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/", "Songbird Macrorefugia rcp4.5 2071-2100.tif")
+prepare_raster_file_1km_and_5km(Birds_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Tree Macrorefugia rcp4.5 2071-2100
-Trees_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/",
-                           "Tree Macrorefugia rcp4.5 2071-2100.tif")
-prepare_raster_file(Trees_refugia, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+Trees_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/", "Tree Macrorefugia rcp4.5 2071-2100.tif")
+prepare_raster_file_1km_and_5km(Trees_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Potencial Climatic Refugia
-Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future climate refugia/",
-                              "Potencial Climatic Refugia rcp8.5 2071-2100.tif")
-prepare_raster_file(Climatic_refugia, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future climate refugia/", "Potencial Climatic Refugia rcp8.5 2071-2100.tif")
+prepare_raster_file_1km_and_5km(Climatic_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
 
 # Ecoregional Refugia Index rcp4.5 2071-2100
-Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/",
-                                       "Ecoregional Refugia Index rcp4.5 2071-2100.tif")
-prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100 - 1km.tif")
+prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "1km")
+Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100 - 5km.tif")
+prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
 
 ########### YALE 6 - Ecological connectivity
 
