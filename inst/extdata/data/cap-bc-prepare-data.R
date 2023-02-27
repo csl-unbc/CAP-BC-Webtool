@@ -102,6 +102,7 @@ prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_
   system(gdalwarp_cmd)
 
   prepare_raster_file(raster_file, raster(tmp_file), out_path, norm, dt, fill_nodata, "5km")
+  file.remove(tmp_raster_path)
   file.remove(tmp_file)
 }
 
@@ -368,14 +369,12 @@ yale_path <- "yale_6"
 # Species movement to analog climates
 Species_movement_to_analog_climates <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Climate connectivity priority areas/",
                                         "Species movement to analog climates rcp8.5 2071-2100.tif")
-prepare_raster_file(Species_movement_to_analog_climates, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(Species_movement_to_analog_climates, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Current-flow centrality climate analogs rcp8.5 2071-2100
 Current_flow_centrality <- file.path(cap_bc_input, "Layers - Projection/Connectivity/Centrality climate analogs/",
                                       "Current-flow centrality climate analogs rcp8.5 2071-2100.tif")
-prepare_raster_file(Current_flow_centrality, NA, out_path = yale_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(Current_flow_centrality, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 ########### Ecosystem services
 
@@ -383,23 +382,19 @@ out_path <- "ecosystem_services"
 
 # Ecosystem Carbon
 ecosystem_carbon <- file.path(cap_bc_input, "Layers - Current/Carbon Storage/Ecosystem Carbon.tif")
-prepare_raster_file(ecosystem_carbon, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(ecosystem_carbon, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Net Primary Productivity
 net_primary_productivity <- file.path(cap_bc_input, "Layers - Current/Carbon Storage/Biomass Ecosystem/Net Primary Productivity.tif")
-prepare_raster_file(net_primary_productivity, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(net_primary_productivity, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Recreation Provision
 recreation_provision <- file.path(cap_bc_input, "Layers - Current/Ecosystem Services/Recreation Provision.tif")
-prepare_raster_file(recreation_provision, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(recreation_provision, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Freshwater Provision
 freshwater_provision <- file.path(cap_bc_input, "Layers - Current/Ecosystem Services/Freshwater Provision.tif")
-prepare_raster_file(freshwater_provision, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(freshwater_provision, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 
 ########### COSTS
@@ -408,33 +403,27 @@ out_path <- "costs"
 
 # Human Footprint
 human_footprint <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Human Footprint.tif")
-prepare_raster_file(human_footprint, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(human_footprint, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Road Density (log)
 road_density <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Road Density (log).tif")
-prepare_raster_file(road_density, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(road_density, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Forward multivariate climatic velocity
 forward_multivariate_climatic_velocity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Multivariate climatic velocity/Forward multivariate climatic velocity rcp4.5 2071-2100.tif")
-prepare_raster_file(forward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(forward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Backward multivariate climatic velocity
 backward_multivariate_climatic_velocity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Multivariate climatic velocity/Backward multivariate climatic velocity rcp4.5 2071-2100.tif")
-prepare_raster_file(backward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(backward_multivariate_climatic_velocity, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Absolute climatic dissimilarity
 absolute_climatic_dissimilarity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Absolute climatic dissimilarity/Absolute climatic dissimilarity Ensemble rcp4.5 2071-2100.tif")
-prepare_raster_file(absolute_climatic_dissimilarity, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(absolute_climatic_dissimilarity, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Relative climatic dissimilarity
 relative_climatic_dissimilarity <- file.path(cap_bc_input, "Layers - Projection/Climate Variables/Relative climatic dissimilarity/Relative climatic dissimilarity rcp4.5 2071-2100.tif")
-prepare_raster_file(relative_climatic_dissimilarity, NA, out_path = out_path, norm = TRUE,
-                    dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(relative_climatic_dissimilarity, NA, out_path = out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 ########### INCLUDES
 
