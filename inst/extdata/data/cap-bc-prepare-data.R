@@ -36,10 +36,10 @@ PU_5km[PU_5km==0] <- NA
 
 prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype, fill_nodata = NA, res) {
 
-  if (class(raster_layer)[1]!="RasterLayer") {
-    rl <- raster_file %>% raster()
-  } else {
+  if (class(raster_layer)[1]=="RasterLayer") {
     rl <- raster_layer
+  } else {
+    rl <- raster_file %>% raster()
   }
 
   if (res == "1km") {
@@ -54,7 +54,6 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
   # replace suffix from 1km and 5km Vector2PU convertion
   file_name <- sub(' - 1km.tif', '.tif', file_name)
   file_name <- sub(' - 5km.tif', '.tif', file_name)
-
 
   #layer_name <- sub('\\..[^\\.]*$', '', file_name)
 
@@ -79,21 +78,27 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
 
 prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = NA) {
 
-  if (class(raster_layer)[1]=="RasterLayer") {
-    rl <- raster_layer
-  } else {
-    rl <- raster_file %>% raster()
-  }
-
-  # 1km resolution
+  ####### 1km resolution #######
   dt <- dtype[1]
   prepare_raster_file(raster_file, raster_layer, out_path, norm, dt, fill_nodata, "1km")
 
-  # 5km resolution
+  ####### 5km resolution #######
   dt <- dtype[2]
-  method <- if (dt == "FLT4S") "bilinear" else "ngb"
-  resamp_raster <- raster::projectRaster(rl, to = PU_5km, method = method)
-  prepare_raster_file(raster_file, resamp_raster, out_path, norm, dt, fill_nodata, "5km")
+  if (class(raster_layer)[1]=="RasterLayer") {
+    rl <- raster_layer
+    tmp_raster_path <- tempfile(fileext = ".tif")
+    writeRaster(rl, filename=tmp_raster_path, format="GTiff", overwrite=TRUE, datatype=dt)
+  } else {
+    tmp_raster_path <- raster_file
+  }
+  method <- if (dt == "FLT4S") "average" else "near"
+  tmp_file <- tempfile(fileext = ".tif")
+  extent <- paste0(PU_5km@extent[1], " ", PU_5km@extent[3], " ", PU_5km@extent[2], " ", PU_5km@extent[4])
+  gdalwarp_cmd <- paste0("gdalwarp -r ", method, " -t_srs EPSG:3005 -tr 5000 5000 -te ", extent, " '", tmp_raster_path, "' '", tmp_file, "'")
+  system(gdalwarp_cmd)
+
+  prepare_raster_file(raster_file, raster(tmp_file), out_path, norm, dt, fill_nodata, "5km")
+  file.remove(tmp_file)
 }
 
 
@@ -351,10 +356,8 @@ Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future 
 prepare_raster_file_1km_and_5km(Climatic_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
 
 # Ecoregional Refugia Index rcp4.5 2071-2100
-Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100 - 1km.tif")
-prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "1km")
-Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100 - 5km.tif")
-prepare_raster_file(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
+Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100.tif")
+prepare_raster_file_1km_and_5km(Ecoregional_Refugia_Index, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 ########### YALE 6 - Ecological connectivity
 
