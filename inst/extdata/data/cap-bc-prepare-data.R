@@ -86,11 +86,15 @@ prepare_raster_file_1km_and_5km <- function(raster_file, raster_layer = NA, out_
   dt <- dtype[2]
   if (class(raster_layer)[1]=="RasterLayer") {
     rl <- raster_layer
-    tmp_raster_path <- tempfile(fileext = ".tif")
-    writeRaster(rl, filename=tmp_raster_path, format="GTiff", overwrite=TRUE, datatype=dt)
   } else {
-    tmp_raster_path <- raster_file
+    rl <- raster(raster_file)
   }
+  if (!is.na(fill_nodata)) {
+    rl[is.na(rl[])] <- fill_nodata
+  }
+  tmp_raster_path <- tempfile(fileext = ".tif")
+  writeRaster(rl, filename=tmp_raster_path, format="GTiff", overwrite=TRUE, datatype=dt)
+
   method <- if (dt == "FLT4S") "average" else "near"
   tmp_file <- tempfile(fileext = ".tif")
   extent <- paste0(PU_5km@extent[1], " ", PU_5km@extent[3], " ", PU_5km@extent[2], " ", PU_5km@extent[4])
@@ -338,10 +342,8 @@ write.csv(trees_table, file.path(here::here("inst/extdata/data/cap-bc-metadata/"
 yale_path <- "yale_5"
 
 # BEC Zones Overlap
-BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap - 1km.tif")
-prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE, dtype = "INT1U", fill_nodata = 0, "1km")
-BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap - 5km.tif")
-prepare_raster_file(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = 0, "5km")
+BEC_zones_overlap <- file.path(cap_bc_input, "Layers - Projection/Refugia/BEC Zones Overlap/BEC Zones Overlap.tif")
+prepare_raster_file_1km_and_5km(BEC_zones_overlap, NA, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "FLT4S"), fill_nodata = 0)
 
 # Songbird Macrorefugia rcp4.5 2071-2100
 Birds_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Tree and Songbird Macrorefugia/", "Songbird Macrorefugia rcp4.5 2071-2100.tif")
