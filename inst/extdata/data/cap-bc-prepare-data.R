@@ -60,16 +60,15 @@ prepare_raster_file <- function(raster_file, raster_layer = NA, out_path, norm =
   if (!is.na(fill_nodata)) {
     rl[is.na(rl[])] <- fill_nodata
   }
-  rl <- rl %>% raster::mask(PU)
 
   # normalize layer to 0-1 km2 or 0-25 km2
   if (norm) {
-    if (res == "1km") {
-      rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min))
-    } else {
-      rl <- (rl-cellStats(rl, min))/(cellStats(rl, max)-cellStats(rl, min)) * 25
+    rl <- (rl-min(rl[], na.rm = TRUE))/(max(rl[], na.rm = TRUE)-min(rl[], na.rm = TRUE))
+    if (res == "5km") {
+      rl <- rl * 25
     }
   }
+  rl <- rl %>% raster::mask(PU)
 
   full_out_path <- file.path(here::here("inst/extdata/data/"), cap_bc_dir, out_path)
   if (!dir.exists(full_out_path)) {dir.create(full_out_path, recursive = TRUE)}
@@ -130,12 +129,14 @@ for (file in BEC_current_5km) {
 
 # under_represented_BEC_zones - 1km
 under_represented_BEC_zones_1km <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Under-represented BEC zones - 1km.tif")
-prepare_raster_file(under_represented_BEC_zones_1km, NA, out_path = yale_path, norm = TRUE,
-                    dtype = "FLT4S", fill_nodata = NA, res = "1km")
+x <- raster(under_represented_BEC_zones_1km)
+x[x[] < 0.7] <- NA
+prepare_raster_file(under_represented_BEC_zones_1km, x, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, res = "1km")
 # under_represented_BEC_zones - 5km
 under_represented_BEC_zones_5km <- file.path(cap_bc_input, "Layers - Current/Ecosystems/BEC Zones/Under-represented BEC zones - 5km.tif")
-prepare_raster_file(under_represented_BEC_zones_5km, NA, out_path = yale_path, norm = TRUE,
-                    dtype = "FLT4S", fill_nodata = NA, res = "5km")
+x <- raster(under_represented_BEC_zones_5km)
+x[x[] < 0.7] <- NA
+prepare_raster_file(under_represented_BEC_zones_5km, x, out_path = yale_path, norm = TRUE, dtype = "FLT4S", fill_nodata = NA, res = "5km")
 
 # Critical habitat
 critical_habitat <- file.path(cap_bc_input, "Layers - Current/Ecosystems/Habitats/Critical Habitat - 1km.tif")
@@ -250,11 +251,11 @@ intact_forest_landscapes <- file.path(cap_bc_input, "Layers - Current/Biodiversi
 ifl<-raster(intact_forest_landscapes)
 ifl[ifl<=50]<-0
 ifl[ifl>50]<-1
-prepare_raster_file_1km_and_5km(intact_forest_landscapes, ifl, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = NA)
+prepare_raster_file_1km_and_5km(intact_forest_landscapes, ifl, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "FLT4S"), fill_nodata = NA)
 
 # Wilderness
 wilderness <- file.path(cap_bc_input, "Layers - Current/Human/Impact/Wilderness.tif")
-prepare_raster_file_1km_and_5km(wilderness, NA, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(wilderness, NA, out_path = yale_path, norm = TRUE, dtype = c("INT1U", "FLT4S"), fill_nodata = 0)
 
 ########### YALE 3 - Geophysical setting
 
@@ -278,14 +279,14 @@ yale_path <- "yale_4"
 BEC_future_list <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/BEC Zones Projection/By Zones/") %>%
   list.files(pattern = "*2071-2100.tif$", full.names = TRUE)
 for (file in BEC_future_list) {
-  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "BEC projections"), norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "BEC projections"), norm = TRUE, dtype = c("INT1U", "FLT4S"), fill_nodata = 0)
 }
 
 # Pinch Point BEC Zone {16 zones}
 BEC_pinch_points <- file.path(cap_bc_input, "Layers - Projection/Ecosystems/Pinch Point BEC Zones/") %>%
   list.files(pattern = "*.tif$", full.names = TRUE)
 for (file in BEC_pinch_points) {
-  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE, dtype = c("INT1U", "INT1U"), fill_nodata = 0)
+  prepare_raster_file_1km_and_5km(file, NA, out_path = file.path(yale_path, "Pinch Point BEC Zones"), norm = TRUE, dtype = c("INT1U", "FLT4S"), fill_nodata = 0)
 }
 
 # Bird Species Richness
@@ -356,7 +357,7 @@ prepare_raster_file_1km_and_5km(Trees_refugia, NA, out_path = yale_path, norm = 
 
 # Potencial Climatic Refugia
 Climatic_refugia <- file.path(cap_bc_input, "Layers - Projection/Refugia/Future climate refugia/", "Potencial Climatic Refugia rcp8.5 2071-2100.tif")
-prepare_raster_file_1km_and_5km(Climatic_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "INT1U"), fill_nodata = 0)
+prepare_raster_file_1km_and_5km(Climatic_refugia, NA, out_path = yale_path, norm = TRUE, dtype = c("FLT4S", "FLT4S"), fill_nodata = 0)
 
 # Ecoregional Refugia Index rcp4.5 2071-2100
 Ecoregional_Refugia_Index <- file.path(cap_bc_input, "Layers - Projection/Refugia/Ecoregional Refugia Index/", "Ecoregional Refugia Index rcp4.5 2071-2100.tif")
