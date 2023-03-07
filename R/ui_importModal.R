@@ -99,11 +99,11 @@ importModal <- function(id) {
         choices = c("No built-in projects available" = "NA"),
         multiple = FALSE
       ),
-      shiny::checkboxInput(
-        paste0(id, "_builtin_hide_layers"),
-        shiny::HTML("Hide all input layers (to load the project faster)"),
-        value = FALSE
-      )
+      # shiny::checkboxInput(
+      #   paste0(id, "_builtin_hide_layers"),
+      #   shiny::HTML("Hide all input layers (to load the project faster)"),
+      #   value = FALSE
+      # )
     ),
 
     ## manual method
@@ -174,6 +174,12 @@ importModal <- function(id) {
         class = "control-label",
         "Note that non-numeric data are excluded."
       )
-    )
+    ),
+    ## add WhereToWork logos
+    shiny::HTML(
+      '<hr style="border-top: 1px dashed #ccc;">
+      CAP-BC uses Where To Work tool and it is thanks to:<br>
+      <img style="max-width: 100%; padding: 8px;" src="www/cap-bc/wtw_logos.webp"/>
+      '),
   )
 }
