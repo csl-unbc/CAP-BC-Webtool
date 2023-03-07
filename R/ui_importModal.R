@@ -99,11 +99,11 @@ importModal <- function(id) {
         choices = c("No built-in projects available" = "NA"),
         multiple = FALSE
       ),
-      # shiny::checkboxInput(
-      #   paste0(id, "_builtin_hide_layers"),
-      #   shiny::HTML("Hide all input layers (to load the project faster)"),
-      #   value = FALSE
-      # )
+      shiny::checkboxInput(
+        paste0(id, "_builtin_hide_layers"),
+        shiny::HTML("Hide all input layers (to load the project faster)"),
+        value = FALSE
+      )
     ),
 
     ## manual method
