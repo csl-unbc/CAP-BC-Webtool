@@ -179,7 +179,7 @@ importModal <- function(id) {
     shiny::HTML(
       '<hr style="border-top: 1px dashed #ccc;">
       CAP-BC uses Where To Work tool and it is thanks to:<br>
-      <img style="max-width: 100%; padding: 5px;" src="www/cap-bc/wtw_logos.webp"/>
+      <img style="max-width: 100%; padding: 7px 0px 5px 0px;" src="www/cap-bc/wtw_logos.webp"/>
       '),
   )
 }
